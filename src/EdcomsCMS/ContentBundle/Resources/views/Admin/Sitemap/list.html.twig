@@ -1,0 +1,33 @@
+{% extends 'SonataAdminBundle:CRUD:base_list.html.twig' %}
+
+{% block sonata_page_content_header %}
+    <div class="row">
+        <div class="col-md-3 col-sm-6 col-xs-12">
+            <div class="info-box" data-toggle="tooltip" data-original-title="It includes only published Content that is non-hidden from Search engines.">
+                <span class="info-box-icon bg-aqua"><i class="fa fa-link"></i></span>
+
+                <div class="info-box-content">
+                    <span class="info-box-text">Content entries</span>
+                    <span class="info-box-number">{{ admin.getContentEntriesCount() }}</span>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-3 col-sm-6 col-xs-12">
+            <div class="info-box" data-toggle="tooltip" data-original-title="It includes only active custom entries.">
+                <span class="info-box-icon bg-red"><i class="fa fa-link"></i></span>
+
+                <div class="info-box-content">
+                    <span class="info-box-text">Custom entries</span>
+                    <span class="info-box-number">{{ admin.getCustomEntriesCount() }}</span>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    {{ parent() }}
+
+{%- endblock -%}
+
+{% block list_table %}
+    {{ parent() }}
+{%- endblock -%}

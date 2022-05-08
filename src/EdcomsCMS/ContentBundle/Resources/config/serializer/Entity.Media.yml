@@ -1,0 +1,2 @@
+EdcomsCMS\ContentBundle\Entity\Media:
+    exclusion_policy: ALL

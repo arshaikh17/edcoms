@@ -1,0 +1,19 @@
+<form method="post" enctype="multipart/form-data">
+    <label for="headers">Contains headers?</label>
+    <input type="checkbox" name="headers" id="headers" value="on" />
+    
+{#  provide the custom fields in the csv  #}
+<p>Mapping: <input type="text" name="mapping[0][from]" value="USERS_email"/> <input type="text" name="mapping[0][to]" value="username" /></p><!-- this is because we use email as username -->
+<p>Mapping: <input type="text" name="mapping[1][from]" value="USERS_password"/> <input type="text" name="mapping[1][to]" value="password" /></p>
+<p>Mapping: <input type="text" name="mapping[2][from]" value="USERS_first_name"/> <input type="text" name="mapping[2][to]" value="first_name" /></p>
+<p>Mapping: <input type="text" name="mapping[3][from]" value="USERS_second_name"/> <input type="text" name="mapping[3][to]" value="last_name" /></p>
+<p>Mapping: <input type="text" name="mapping[4][from]" value="is_active"/> <input type="text" name="mapping[4][to]" value="is_active" /></p>
+<p>Mapping: <input type="text" name="mapping[5][from]" value="USERS_email"/> <input type="text" name="mapping[5][to]" value="email" /></p>
+<p>Mapping: <input type="text" name="mapping[6][from]" value="USERS_title"/> <input type="text" name="mapping[6][to]" value="title" /></p>
+<p>Mapping: <input type="text" name="mapping[7][from]" value="USERS_tecl"/> <input type="text" name="mapping[7][to]" value="education_number" /></p>
+<p>Mapping: <input type="text" name="mapping[8][from]" value="USERS_id"/> <input type="text" name="mapping[8][to]" value="RTRID" /></p>
+    
+    <label for="data">File: </label>
+    <input id="data" type="file" name="data" />
+    <input type="submit" />
+</form>

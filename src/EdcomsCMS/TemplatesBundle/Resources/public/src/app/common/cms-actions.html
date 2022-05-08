@@ -1,0 +1,24 @@
+<div ng-if="vm.actions" class="m-card__button">
+    <p class="m-card__button-label">{{ vm.actions.labels }}</p>
+    <div class="m-card__button-action">
+        <a ng-if="a.link" ng-repeat="(label, a) in vm.actions.actions track by $index" permissions="{{ a.access }}" class="m-btn m-btn--sq m-btn--{{a.color}}" ng-href="{{ a.link }}{{vm.id}}">
+            <i ng-show="label==='cancel'" class="material-icons">&#xE5C4;</i>
+            <i ng-show="label==='submit'" class="material-icons">&#xE5CA;</i>
+            <i ng-show="label==='add'" class="material-icons">&#xE145;</i>
+            <i ng-show="label==='edit'" class="material-icons">&#xE254;</i>
+            <i ng-show="label==='view'" class="material-icons">&#xE417;</i>
+            <i ng-show="label==='delete'" class="material-icons">&#xE872;</i>
+            <i ng-show="label==='download'" class="material-icons">&#xE2C4;</i>
+            <label class="m-btn__label">{{ label }}</label>
+        </a>
+        <button ng-if="a.button" ng-repeat="(label, a) in vm.actions.actions" permissions="{{ a.access }}" type="{{a.type}}" class="m-btn m-btn--sq  m-btn--{{a.color}}" ng-click="vm.call({cmsFn: a.button})">
+            <i ng-show="label==='cancel'" class="material-icons">&#xE5C4;</i>
+            <i ng-show="label==='submit'" class="material-icons">&#xE5CA;</i>
+            <i ng-show="label==='edit'" class="material-icons">&#xE254;</i>
+            <i ng-show="label==='view'" class="material-icons">&#xE417;</i>
+            <i ng-show="label==='delete'" class="material-icons">&#xE872;</i>
+            <i ng-show="label==='download'" class="material-icons">&#xE2C4;</i>
+            <label class="m-btn__label">{{ label }}</label>
+        </button>
+    </div>
+</div>

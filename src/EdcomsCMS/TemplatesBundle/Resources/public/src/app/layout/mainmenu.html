@@ -1,0 +1,8 @@
+<nav class="m-menu" role="navigation">
+    <ul class="u-no-list">
+        <li class="m-menu__item" permissions="{{r.context}};read" ng-class="vm.isCurrent(r)" ng-repeat="r in vm.navRoutes track by $index">
+            <a class="m-header__button m-btn" href="#{{r.originalPath}}" ng-bind-html="r.settings.content">
+            </a>
+        </li>
+    </ul>
+</nav>

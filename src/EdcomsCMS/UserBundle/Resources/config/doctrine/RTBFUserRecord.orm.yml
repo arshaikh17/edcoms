@@ -1,0 +1,27 @@
+EdcomsCMS\UserBundle\Entity\RTBFUserRecord:
+  type: entity
+  table: rtbf_user_record
+  id:
+    id:
+      type: bigint
+      generator: { strategy: AUTO }
+  fields:
+    username:
+      type: string
+      nullable: false
+    createdOn:
+      column: created_on
+      type: datetime
+      nullable: false
+      gedmo:
+        timestampable:
+          on: create
+    actionsOverview:
+      column: actions_overview
+      type: json_array
+  manyToOne:
+    user:
+      targetEntity: EdcomsCMS\UserBundle\Entity\User
+      joinColumn:
+        name: user_id
+        referencedColumnName: id

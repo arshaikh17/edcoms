@@ -1,0 +1,140 @@
+.m-card {
+    background-color: #fff;
+    position: relative;
+    @include clearfix();
+    margin-bottom: 20px;
+    @include card(2);
+    min-height: 198px;
+}
+
+    .m-card__content {
+        min-height: 150px;
+        padding: 20px;
+    }
+
+    .m-card__content--selectable {
+        &:hover {
+            cursor: pointer;
+            background: $edgrey;
+        }
+    }
+
+    .m-card__checkbox:checked + .m-card__content--selectable {
+        background: $edgrey;
+    }
+
+    .m-card__content--padding {
+        padding: 40px 45px;
+    }
+
+    .m-card__introduction {
+        @include font-size(24px);
+        color: #d1d3d4;
+        font-weight: bold;
+        margin: 0 0 30px;
+    }
+
+    .m-card__introduction--small {
+        @include font-size(18px);
+    }
+
+        .m-card__header {
+            margin: 0 0 10px;
+        }
+
+        .m-card__title {
+            margin: 0;
+            word-wrap: break-word;
+            display: inline-block;
+            line-height: 1;
+        }
+
+        .m-card__title-link {
+            vertical-align: middle;
+            &:hover {
+              color: $edblue;
+            }
+        }
+
+        .m-card__icon {
+            font-size: 40px;
+            color: $secondary-color;;
+        }
+
+        .m-card__icon--small {
+            font-size: 22px;
+        }
+
+        .m-card__icon--large {
+            font-size: 100px;
+        }
+
+        .m-card__text {
+            margin: 0;
+        }
+
+        .m-card__meta {
+            margin: 0;
+        }
+
+    .m-card__top-actions {
+        text-transform: uppercase;
+        a {
+            padding-right: 20px;
+            &:last-child {
+                padding: 0;
+            }
+        }
+    }
+    .m-card__button {
+        position: relative;
+        background-color: $secondary-color-dark;
+        font-size: 0;
+        min-height: 48px;
+    }
+
+        .m-card__button-label {
+            margin: 0;
+            padding: 15px 0 15px 20px;
+            color: $white;
+            @include font-size(10px);
+            text-transform: uppercase;
+        }
+
+        .m-card__button-action {
+            position: absolute;
+            top: 0;
+            right: 0;
+        }
+
+    .m-card__button--center {
+        right: auto;
+        left: 50%;
+        transform: translateX(-50%);
+    }
+
+
+
+.m-card--grey {
+    background: #ececec;
+    min-height: 198px;
+}
+
+.m-card__content--grey {
+    background: #ececec;
+}
+
+.m-card--flat {
+    box-shadow: none;
+}
+
+.m-card--border {
+    border: 1px solid #ececec;
+}
+
+
+.m-card__label {
+    text-transform: none;
+    margin: 0;
+    display: block;
+}

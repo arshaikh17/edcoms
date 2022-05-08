@@ -1,0 +1,29 @@
+.m-dialog {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    &.ngdialog-theme-plain {
+        .ngdialog-content {
+            width: 100%;
+        }
+
+        .ngdialog-close {
+            &:before {
+                background: $secondary-color;
+                color: $white;
+            }
+
+            &:hover:before {
+                background: $edblue;
+                color: $white;
+            }
+        }
+    }
+}
+
+    .m-dialog__content {
+        // TODO: responsive
+        width: 880px;
+        height: 570px;
+    }

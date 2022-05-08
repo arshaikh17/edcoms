@@ -1,0 +1,76 @@
+.m-tree {
+    margin:  0;
+    list-style: none;
+    .is-active {
+        color: $white;
+        background: $edblue;
+        width: 100%;
+        font-weight: bold;
+        &:hover a {
+            cursor: default;
+            color: $white;
+        }
+    }
+    .is-disabled {
+        color: $edgrey;
+        &:hover {
+            cursor: default;
+            a {
+                color: $edgrey;
+            }
+        }
+    }
+
+}
+
+.m-tree--margin {
+    margin-top: 20px;
+}
+
+    .m-tree__node {
+        padding: 5px;
+        border-bottom: 1px solid $white;
+        display: block;
+    }
+        .m-tree__icon {
+            vertical-align: middle;
+            color: $black;
+            &:hover {
+                cursor: pointer;
+            }
+        }
+
+        .m-tree__icon--small {
+            @include font-size(14px);
+        }
+
+    .m-tree__leaf {
+        line-height: 24px;
+        margin-left: 4px;
+        padding: 5px;
+        border-bottom: 1px solid $white;
+        //padding-left: 24px;
+    }
+
+    .m-tree__link {
+        font-weight: bold;
+        padding: 0 0 5px 5px;
+        &:hover {
+          cursor: pointer;
+        }
+    }
+
+    .m-tree__label {
+        width: 40%;
+        line-height: 1;
+    }
+
+    .m-tree__children {
+        margin:  0;
+        padding-left: 10px;
+        list-style: none;
+        .m-tree__link { // Should be a modifier or another class
+            font-weight: normal;
+            padding-bottom: 0;
+        }
+    }

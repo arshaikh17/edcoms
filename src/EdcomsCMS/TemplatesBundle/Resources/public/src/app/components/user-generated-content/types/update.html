@@ -1,0 +1,166 @@
+<div class="m-card">
+    <form name="vm.UserGeneratedContentFormCreate" class="m-form" novalidate>
+        <cms-actions actions="vm.topAction" id="vm.ugcType.UserGeneratedContentFormCreate.id"
+                     call="vm.callFunction(cmsFn)"></cms-actions>
+        <div class="m-card__content">
+            <h2>{{ vm.title }}</h2>
+            <div class="m-form__block">
+                <div class="m-form__block-field">
+                    <label for="UserGeneratedContentFormCreateName" class="m-form__label">User generated content type
+                        name</label>
+                    <input id="UserGeneratedContentFormCreateName" class="m-form__field" type="text" name="Name"
+                           ng-model="vm.ugcType.UserGeneratedContentFormCreate.name" ng-required="vm.required.name"/>
+                    <div ng-show="vm.required.name && (UserGeneratedContentFormCreate.$submitted || UserGeneratedContentFormCreate.Name.$touched)">
+                        <div ng-show="UserGeneratedContentFormCreate.Name.$error.required"
+                             class="m-form__message--error">Name is required.
+                        </div>
+                    </div>
+                </div>
+                <div class="m-form__block-field">
+                    <label for="UserGeneratedContentFormCreateContent" class="m-form__label">Content</label>
+                    <div ng-repeat="c in vm.contentEntries track by $index">
+                        <div class="contents">
+                            <select id="UserGeneratedContentFormCreateContent"
+                                    class="m-form__field m-form__field--select" name="Content" ng-required="true"
+                                    ng-model="vm.ugcType.UserGeneratedContentFormCreate.content[$index]"
+                                    ng-options="c.id as 'Version ' + c.version  group by c.title + ' - ' + c.structureID for c in vm.contents">
+                            </select>
+                        </div>
+                    </div>
+                    <button type="button" ng-click="vm.addContentEntry()">Add content/page</button>
+
+                    <div ng-show="vm.UserGeneratedContentFormCreate.$submitted || vm.UserGeneratedContentFormCreate.Content.$touched">
+                        <div ng-show="vm.UserGeneratedContentFormCreate.Content.$error.required"
+                             class="m-form__message--error">Please select a content.
+                        </div>
+                    </div>
+                </div>
+                <div class="m-form__block-field">
+                    <label for="UserGeneratedContentFormCreateEntriesVisible">Should the generated entries be visible on
+                        the site:</label>
+                    <input type="checkbox" id="UserGeneratedContentFormCreateEntriesVisible"
+                           class="m-form__field--checkbox" name="EntriesVisible"
+                           ng-model="vm.ugcType.UserGeneratedContentFormCreate.entriesVisible"/>
+                    <div ng-show="vm.required.entriesVisible && (UserGeneratedContentFormCreate.$submitted || vm.UserGeneratedContentFormCreate.EntriesVisible.$touched)">
+                        <div ng-show="vm.UserGeneratedContentFormCreate.EntriesVisible.$error.required"
+                             class="m-form__message--error">Entries visible is required.
+                        </div>
+                    </div>
+                </div>
+
+                <div ng-if="vm.ugcType.UserGeneratedContentFormCreate.entriesVisible" class="m-form__block-field">
+                    <label for="UserGeneratedContentFormCreateEntriesParent" class="m-form__label">Entries parent
+                        content:</label>
+                    <select id="UserGeneratedContentFormCreateEntriesParent" class="m-form__field m-form__field--select"
+                            name="EntriesParent"
+                            ng-model="vm.ugcType.UserGeneratedContentFormCreate.entriesParent"
+                            ng-options="s.id as s.title for s in vm.structure">
+                    </select>
+
+                    <div ng-show="vm.UserGeneratedContentFormCreate.$submitted || vm.UserGeneratedContentFormCreate.EntriesParent.$touched">
+                        <div ng-show="vm.UserGeneratedContentFormCreate.EntriesParent.$error.required"
+                             class="m-form__message--error">Please select where content should sit.
+                        </div>
+                    </div>
+                </div>
+                <div ng-if="vm.ugcType.UserGeneratedContentFormCreate.entriesVisible" class="m-form__block-field">
+                    <label for="UserGeneratedContentFormCreateContentType" class="m-form__label">Entries content
+                        type:</label>
+                    <select id="UserGeneratedContentFormCreateContentType" class="m-form__field m-form__field--select"
+                            name="ContentType"
+                            ng-model="vm.ugcType.UserGeneratedContentFormCreate.entryContentType"
+                            ng-options="ct.id as ct.name for ct in vm.contentTypes">
+                    </select>
+                    <div ng-show="vm.UserGeneratedContentFormCreate.$submitted || vm.UserGeneratedContentFormCreate.ContentType.$touched">
+                        <div ng-show="vm.UserGeneratedContentFormCreate.ContentType.$error.required"
+                             class="m-form__message--error">Please select a content type.
+                        </div>
+                    </div>
+                </div>
+                <div class="m-form__block-field">
+                    <label class="m-form__label">Type</label>
+                    <div class="m-form__block-field--checkbox">
+                        <input type="radio" id="UserGeneratedContentFormCreateType1" class="m-form__field--checkbox"
+                               name="Type"
+                               ng-model="vm.ugcType.UserGeneratedContentFormCreate.type" ng-value="'custom'"
+                               ng-required="!vm.ugcType.UserGeneratedContentFormCreate.type"/>
+                        <label for="UserGeneratedContentFormCreateType1" class="m-form__label--checkbox">Custom</label>
+                    </div>
+                    <div class="m-form__block-field--checkbox">
+                        <input type="radio" id="UserGeneratedContentFormCreateType2" class="m-form__field--checkbox"
+                               name="Type"
+                               ng-model="vm.ugcType.UserGeneratedContentFormCreate.type" ng-value="'meta'"
+                               ng-required="!vm.ugcType.UserGeneratedContentFormCreate.type"/>
+                        <label for="UserGeneratedContentFormCreateType2" class="m-form__label--checkbox">Meta</label>
+
+                    </div>
+                    <div ng-show="vm.required.type && (vm.UserGeneratedContentFormCreate.$submitted || vm.UserGeneratedContentFormCreate.Type.$touched)">
+                        <div ng-show="vm.UserGeneratedContentFormCreate.Type.$error.required"
+                             class="m-form__message--error">Type is required.
+                        </div>
+                    </div>
+                </div>
+
+                <div class="m-form__block-field">
+                    <label for="UserGeneratedContentFormCreateTemplateFile" class="m-form__label">Template file</label>
+                    <input type="text" id="UserGeneratedContentFormCreateTemplateFile" class="m-form__field"
+                           name="TemplateFile"
+                           ng-model="vm.ugcType.UserGeneratedContentFormCreate.templateFile"
+                           ng-required="vm.required.templateFile"/>
+                    <div ng-show="vm.required.templateFile && (vm.UserGeneratedContentFormCreate.$submitted || vm.UserGeneratedContentFormCreate.TemplateFile.$touched)">
+                        <div ng-show="vm.UserGeneratedContentFormCreate.TemplateFile.$error.required"
+                             class="m-form__message--error">Template file is required.
+                        </div>
+                    </div>
+                </div>
+
+                <div class="m-form__block-field">
+                    <label for="UserGeneratedContentFormCreateNotification" class="m-form__label">Notification
+                        emails</label>
+                    <input type="text" id="UserGeneratedContentFormCreateNotification" class="m-form__field"
+                           name="Notification"
+                           ng-model="vm.ugcType.UserGeneratedContentFormCreate.notification"
+                           ng-required="vm.required.notification"/>
+                    <div ng-show="vm.required.notification && (vm.UserGeneratedContentFormCreate.$submitted || vm.UserGeneratedContentFormCreate.Notification.$touched)">
+                        <div ng-show="vm.UserGeneratedContentFormCreate.Notification.$error.required"
+                             class="m-form__message--error">Notification email is required.
+                        </div>
+                    </div>
+                </div>
+
+                <div class="m-form__block-field">
+                    <label for="UserGeneratedContentFormCreateFormTitle">Fields to build displayed status from (choose
+                        from fields on meta json file separated by , :</label>
+                    <input type="text" id="UserGeneratedContentFormCreateFormTitle"
+                           class="m-form__field m-form__field--long" name="FormTitle"
+                           ng-model="vm.ugcType.UserGeneratedContentFormCreate.form_title"
+                           ng-required="vm.required.form_title"/>
+                    <div ng-show="vm.required.notification && (vm.UserGeneratedContentFormCreate.$submitted || vm.UserGeneratedContentFormCreate.FormTitle.$touched)">
+                        <div ng-show="vm.UserGeneratedContentFormCreate.FormTitle.$error.required"
+                             class="m-form__message--error">Form title is required.
+                        </div>
+                    </div>
+                </div>
+                <div class="m-form__block">
+                    <h3 class="m-form__block-title">Groups</h3>
+                    <div ng-repeat="group in vm.groups track by $index" class="m-form__block-field--checkbox">
+                        <input id="group_{{ group.id }}" class="m-form__field--checkbox"
+                               name="Groups" ng-true-value="{{ group.id }}"
+                               type="checkbox"
+                               ng-model="vm.ugcType.UserGeneratedContentFormCreate.groups[$index]"
+                               ng-required="!vm.checkboxGroupSelected(vm.ugcType.UserGeneratedContentFormCreate.groups)"/>
+                        <label for="group_{{ group.id }}"
+                               class="m-form__label--checkbox">{{ group.name }}</label>
+                    </div>
+                    <div ng-show="vm.UserGeneratedContentFormCreate.$submitted || vm.UserGeneratedContentFormCreate.Groups.$touched">
+                        <div ng-show="vm.UserGeneratedContentFormCreate.Groups.$error.required"
+                             class="m-form__message--error">Please select a group.
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <cms-actions actions="vm.action" id="vm.ugcType.UserGeneratedContentFormCreate.id"
+                     call="vm.callFunction(cmsFn)"></cms-actions>
+    </form>
+</div>

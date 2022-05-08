@@ -1,0 +1,129 @@
+# vendor/edcoms/cms/src/EdcomsCMS/ContentBundle/Resources/config/services.yml
+
+services:
+    EdcomsCMS.form.User.UserCreate:
+        class: EdcomsCMS\ContentBundle\Form\User\UserCreate
+        tags:
+            - { name: form.type, alias: UserCreate}
+    EdcomsCMS.form.Structure.StructureCreate:
+        class: EdcomsCMS\ContentBundle\Form\Structure\StructureCreate
+        tags:
+            - { name: form.type, alias: StructureCreate}
+    EdcomsCMS.form.Content.ContentCreate:
+        class: EdcomsCMS\ContentBundle\Form\Content\ContentCreate
+        tags:
+            - { name: form.type, alias: ContentCreate}
+    EdcomsCMS.form.Content.ContentTypeCreate:
+        class: EdcomsCMS\ContentBundle\Form\Content\ContentTypeCreate
+        tags:
+            - { name: form.type, alias: ContentTypeCreate}
+    EdcomsCMS.form.Content.ContentStructureCreate:
+        class: EdcomsCMS\ContentBundle\Form\Content\ContentStructureCreate
+        tags:
+            - { name: form.type, alias: ContentStructureCreate}
+    EdcomsCMS.form.UserGeneratedContent.UserGeneratedContentFormCreate:
+        class: EdcomsCMS\ContentBundle\Form\UserGeneratedContent\UserGeneratedContentFormCreate
+        tags:
+            - { name: form.type, alias: UserGeneratedContentFormCreate}
+    EdcomsCMS.form.UserGeneratedContent.UserGeneratedContentEntryCreate:
+        class: EdcomsCMS\ContentBundle\Form\UserGeneratedContent\UserGeneratedContentEntryCreate
+        tags:
+            - { name: form.type, alias: UserGeneratedContentEntryCreate}
+    EdcomsCMS.form.Media.MediaTypeCreate:
+        class: EdcomsCMS\ContentBundle\Form\Media\MediaTypeCreate
+        tags:
+            - { name: form.type, alias: MediaTypeCreate}
+    EdcomsCMS.form.Content.SymlinkCreate:
+        class: EdcomsCMS\ContentBundle\Form\Content\SymlinkCreate
+        tags:
+            - { name: form.type, alias: SymlinkCreate}
+    form_errors:
+        class: EdcomsCMS\ContentBundle\Form\FormErrors
+    EdcomsCMSUGC:
+        class: EdcomsCMS\ContentBundle\Helpers\UserGeneratedContentHelper
+        arguments: ["@doctrine", "@service_container"]
+    EdcomsCMSLists:
+        class: EdcomsCMS\ContentBundle\Helpers\Lists
+        arguments: ["@doctrine"]
+    EdcomsCMSFilterOptions:
+        class: EdcomsCMS\ContentBundle\Helpers\FilterOptionsHelper
+        arguments: ["@service_container", "@doctrine"]
+    CMSFields:
+        class: EdcomsCMS\ContentBundle\Model\CMSFields
+    EdcomsCMSSymlinks:
+        class: EdcomsCMS\ContentBundle\Helpers\SymlinkHelper
+        arguments: ["@service_container", "@doctrine"]
+    AccessControl:
+        class: EdcomsCMS\AuthBundle\Security\AccessControl
+        arguments: ["@doctrine", "@service_container", "@security.token_storage"]
+    AuthenticationSuccessHandler:
+        class: EdcomsCMS\AuthBundle\Security\AuthenticationSuccessHandler
+        arguments: ['@router', '@service_container']
+    EdcomsExtension:
+        class: EdcomsCMS\ContentBundle\Twig\EdcomsExtension
+        public: false
+        arguments: ["@doctrine", "@service_container"]
+        tags:
+            - { name: twig.extension }
+    EdcomsCMSZIP:
+        class: EdcomsCMS\ContentBundle\Helpers\ZIPHelper
+        arguments: ['%kernel.root_dir%']
+    APIHelper:
+        class: EdcomsCMS\ContentBundle\Helpers\APIHelper
+        arguments: ["@doctrine", "@service_container", "@security.token_storage"]
+    SearchHelper:
+        class: EdcomsCMS\ContentBundle\Helpers\SearchHelper
+        arguments: ["@doctrine", "@service_container", "@security.token_storage"]
+    VideoHelper:
+        class: EdcomsCMS\ContentBundle\Helpers\VideoHelper
+        arguments: ["@doctrine", "@service_container", "@security.token_storage"]
+    NotificationHelper:
+        class: EdcomsCMS\ContentBundle\Helpers\NotificationHelper
+        arguments: ["@doctrine"]
+    ActivityHelper:
+        class: EdcomsCMS\ContentBundle\Helpers\ActivityHelper
+        arguments: ["@service_container"]
+    edcoms.content.service.configuration:
+        class: EdcomsCMS\ContentBundle\Service\EdcomsContentConfigurationService
+        arguments: ['']
+    QuizHelper:
+        class: EdcomsCMS\ContentBundle\Helpers\QuizHelper
+        arguments: ["@doctrine", "@service_container", "@security.token_storage"]
+    rating.event.subscriber:
+        class: EdcomsCMS\ContentBundle\EventListener\RatingEventListener
+        arguments: ["@doctrine.orm.edcoms_cms_entity_manager"]
+        tags:
+            - { name: kernel.event_listener, event: rating.awarded }
+    edcoms.content.validator.video:
+        class: EdcomsCMS\ContentBundle\Validator\Constraints\VideoValidator
+        arguments: ['@doctrine.orm.entity_manager']
+        tags:
+            - { name: validator.constraint_validator, alias: video_validator }
+    edcoms.content.listener.jms_serializer:
+      class: EdcomsCMS\ContentBundle\EventListener\Serialisation\SerializationListener
+      arguments: ['@service_container']
+      tags:
+          - { name: jms_serializer.event_subscriber }
+    edcoms.content.listener.media:
+      class: EdcomsCMS\ContentBundle\EventListener\Media\MediaEventSubscriber
+      arguments: ['@service_container']
+      tags:
+          - { name: doctrine.event_subscriber }
+    edcoms.content.service.media.url_generator:
+        class: EdcomsCMS\ContentBundle\Service\MediaUrlGenerator
+        arguments: ['@doctrine.orm.entity_manager', '@router', '@edcoms.content.service.configuration']
+    edcoms.content.helper.media.uploader:
+        class: EdcomsCMS\ContentBundle\Helpers\MediaUploader
+        arguments: ['@doctrine.orm.entity_manager', '%kernel.root_dir%', '@edcoms.content.service.media.url_generator', '@VideoHelper']
+    edcoms.content.service.sitemap:
+        class: EdcomsCMS\ContentBundle\Service\SitemapService
+        arguments: ['@doctrine.orm.entity_manager', '@router', '@edcoms.content.service.media.url_generator']
+    edcoms.content.validator.sitemap:
+        class: EdcomsCMS\ContentBundle\Validator\Constraints\SitemapCustomURLValidator
+        arguments: ['@router']
+        tags:
+            - { name: validator.constraint_validator, alias: sitemap_custom_url_validator }
+    edcoms.logger.slack:
+        class: EdcomsCMS\ContentBundle\Service\Logger\Slack\SlackHandler
+        arguments:
+            $slackParams: '%edcoms_logger_slack%'

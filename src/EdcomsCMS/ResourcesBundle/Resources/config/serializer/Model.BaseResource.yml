@@ -1,0 +1,23 @@
+EdcomsCMS\ResourcesBundle\Model\BaseResource:
+    exclusion_policy: ALL
+    properties:
+      title:
+        expose: true
+      subtitle:
+        expose: true
+      slug:
+        expose: true
+      thumbImage:
+        expose: true
+      headerImage:
+        expose: true
+      activities:
+        expose: true
+      subjects:
+        expose: true
+      topics:
+        expose: true
+      type:
+        expose: true
+      ageGroups:
+        expose: true

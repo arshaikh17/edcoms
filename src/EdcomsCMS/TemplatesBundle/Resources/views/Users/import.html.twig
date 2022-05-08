@@ -1,0 +1,16 @@
+<form method="post" enctype="multipart/form-data">
+    <label for="headers">Contains headers?</label>
+    <input type="checkbox" name="headers" id="headers" value="on" />
+    
+{#  provide the custom fields in the csv  #}
+
+<p>Contact Item: <input type="text" name="contacts[0][name]" value="email" /> <input type="text" name="contacts[0][title]" value="Email" /></p>
+<p>Contact Item: <input type="text" name="contacts[1][name]" value="title" /> <input type="text" name="contacts[1][title]" value="Title" /></p>
+<p>Contact Item: <input type="text" name="contacts[2][name]" value="job_title" /> <input type="text" name="contacts[2][title]" value="Job Title" /></p>
+<p>Contact Item: <input type="text" name="contacts[3][name]" value="education_number" /> <input type="text" name="contacts[3][title]" value="Education Number" /></p>
+<p>Contact Item: <input type="text" name="contacts[4][name]" value="rtr" /> <input type="text" name="contacts[4][title]" value="RTRID" /></p>
+    
+    <label for="data">File: </label>
+    <input id="data" type="file" name="data" />
+    <input type="submit" />
+</form>

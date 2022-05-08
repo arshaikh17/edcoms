@@ -1,0 +1,6 @@
+# vendor/edcoms/cms/src/EdcomsCMS/BadgeBundle/Resources/config/services.yml
+services:
+  badge_helper:
+    class: EdcomsCMS\BadgeBundle\Helpers\BadgeHelper
+    arguments: ["@doctrine", "@service_container"]
+

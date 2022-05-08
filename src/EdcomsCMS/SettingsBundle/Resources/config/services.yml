@@ -1,0 +1,17 @@
+services:
+    edcoms.twig.extension.settings.twig_extension:
+        class: EdcomsCMS\SettingsBundle\Twig\EdcomsSettingsExtension
+        arguments:  ['@edcoms.settings' , "%edcoms.settings_manager.categories%"]
+        tags:
+            - { name: twig.extension }
+
+    edcoms.settings:
+        class: EdcomsCMS\SettingsBundle\Service\SettingsService
+        arguments: ['@dmishh.settings.settings_manager',"%edcoms.settings_manager.settings%", '@form.factory']
+
+    edcoms.form.type.settings_management:
+        class: EdcomsCMS\SettingsBundle\Form\Type\SettingsType
+        arguments:
+            - "%edcoms.settings_manager.settings%"
+        tags:
+            - { name: form.type }

@@ -1,0 +1,43 @@
+{% set contentTypes = admin.getContentTypes() %}
+<li class="max-height-scroll">
+    {% if contentTypes|length > 8 %}
+    <input class="m-input-filter" name="filterContentType" placeholder="Filter content types..">
+    {% endif %}
+    {% for contentType in contentTypes %}
+        <a class="sonata-action-element" href="{{ admin.generateUrl('create',{content_type: contentType.id }) }}" data-contenttypename="{{ contentType.name }}">
+            <i class="fa fa-plus-circle" aria-hidden="true"></i>
+            {{ 'Add '~contentType.name }}
+        </a>
+    {% endfor %}
+</li>
+<li role="separator" class="divider"></li>
+{% for item in admin.getActionButtons(action, object|default(null)) %}
+    {% if item.template is defined %}
+        {% include item.template %}
+    {% endif %}
+{% endfor %}
+
+{% if action=="edit" and (is_granted('ROLE_EDCOMS_CONTENT_ADMIN_CONTENT_TYPE_EDIT') or is_granted('ROLE_EDCOMS_CONTENT_ADMIN_CONTENT_TYPE_ALL') or is_granted('ROLE_SUPER_ADMIN')) %}
+<li role="separator" class="divider"></li>
+<li>
+    <a class="sonata-action-element" href="{{ url('admin_edcomscms_content_contenttype_edit', {id: object.contentType.id}) }}">
+        <i class="fa fa-cogs" aria-hidden="true"></i>
+        Edit Content type
+    </a>
+</li>
+{% endif %}
+
+<script>
+    $( document ).ready(function() {
+        $('input[name="filterContentType"]').keyup(function () {
+            var val = $(this).val().toLowerCase()
+            $('.sonata-action-element[data-contenttypename]').each(function () {
+                if ($(this).attr('data-contenttypename').toLowerCase().indexOf(val) >= 0) {
+                    $(this).removeClass('hidden');
+                } else {
+                    $(this).addClass('hidden');
+                }
+            });
+        });
+    });
+</script>

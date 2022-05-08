@@ -1,0 +1,60 @@
+services:
+  edcoms.resources.gedmo.listener.timestampable:
+    class: Gedmo\Timestampable\TimestampableListener
+    tags:
+        - { name: doctrine.event_subscriber, connection: default }
+
+  edcoms.resources.gedmo.listener.sluggable:
+    class: Gedmo\Sluggable\SluggableListener
+    tags:
+        - { name: doctrine.event_subscriber, connection: default }
+  edcoms.resources.service.configuration:
+    class: EdcomsCMS\ResourcesBundle\Service\EdcomsResourcesConfigurationService
+    arguments: ['']
+  edcoms.resources.service.filter_configuration:
+    class: EdcomsCMS\ResourcesBundle\Service\Filter\ResourcesFilterConfigurationService
+    arguments: ['@doctrine.orm.entity_manager', '@edcoms.resources.service.configuration', '@router']
+  edcoms.resources.listener.doctrine_event_listener:
+    class: EdcomsCMS\ResourcesBundle\Listener\DoctrineEventListener
+    arguments: [ '@edcoms.resources.service.configuration']
+    tags:
+        - { name: doctrine.event_listener, event: loadClassMetadata }
+
+  # Repository
+  edcoms.resources.repository.resource:
+    class: EdcomsCMS\ResourcesBundle\Repository\ResourceRepository
+    factory: ['@doctrine.orm.default_entity_manager', 'getRepository']
+    arguments:
+        - ''
+    calls:
+        - [setPaginator, ['@knp_paginator']]
+
+  # Factory
+  edcoms.resources.factory.filter:
+    class: EdcomsCMS\ResourcesBundle\Service\Filter\FilterFactory
+    arguments: ['@edcoms.resources.service.filter_configuration']
+
+  # Provider
+  edcoms.resources.filter_provider.builder_service:
+    class: EdcomsCMS\ResourcesBundle\Provider\FilterBuilderServiceProvider
+    arguments: ['@service_container','']
+
+  # Renderer
+  edcoms.resources.filter_renderer:
+    class: EdcomsCMS\ResourcesBundle\Service\Filter\FilterFormRenderer
+    arguments: ['@doctrine.orm.entity_manager']
+
+  # Twig
+  edcoms.resources.filter_twig_extension:
+    class: EdcomsCMS\ResourcesBundle\Twig\Extension\ResourcesFilterExtension
+    arguments:  ['@service_container' ]
+    public: false
+    tags:
+        - { name: twig.extension }
+
+  edcoms.resources.twig_extension:
+    class: EdcomsCMS\ResourcesBundle\Twig\Extension\ResourcesExtension
+    arguments:  ['@service_container' ]
+    public: false
+    tags:
+        - { name: twig.extension }

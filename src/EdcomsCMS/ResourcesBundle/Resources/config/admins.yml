@@ -1,0 +1,31 @@
+services:
+  edcoms.resources.admin.resource_activity:
+    class: EdcomsCMS\ResourcesBundle\Admin\ResourceActivityAdmin
+    arguments: [~, EdcomsCMS\ResourcesBundle\Entity\ResourceActivity, ~]
+    tags:
+        - { name: sonata.admin, manager_type: orm, label: Activities, group: Resources, audit: false, , icon: "<i class=\"fa fa-leanpub\"></i>", show_mosaic_button: false }
+  edcoms.resources.admin.age_group:
+    class: EdcomsCMS\ResourcesBundle\Admin\AgeGroupAdmin
+    arguments: [~, EdcomsCMS\ResourcesBundle\Entity\AgeGroup, ~]
+    tags:
+        - { name: sonata.admin, manager_type: orm, label: Age groups, group: Resources, audit: false, , icon: "<i class=\"fa fa-leanpub\"></i>", show_mosaic_button: false }
+  edcoms.resources.admin.resource:
+    class: EdcomsCMS\ResourcesBundle\Admin\ResourceAdmin
+    arguments: [~, EdcomsCMS\ResourcesBundle\Entity\Resource, ~]
+    tags:
+        - { name: sonata.admin, manager_type: orm, label: Resources, group: Resources, audit: false, , icon: "<i class=\"fa fa-leanpub\"></i>", show_mosaic_button: false }
+  edcoms.resources.admin.resource_subject:
+    class: EdcomsCMS\ResourcesBundle\Admin\ResourceSubjectAdmin
+    arguments: [~, EdcomsCMS\ResourcesBundle\Entity\ResourceSubject, ~]
+    tags:
+        - { name: sonata.admin, manager_type: orm, label: Subjects, group: Resources, audit: false, , icon: "<i class=\"fa fa-leanpub\"></i>", show_mosaic_button: false }
+  edcoms.resources.admin.resource_topic:
+    class: EdcomsCMS\ResourcesBundle\Admin\ResourceTopicAdmin
+    arguments: [~, EdcomsCMS\ResourcesBundle\Entity\ResourceTopic, ~]
+    tags:
+        - { name: sonata.admin, manager_type: orm, label: Topics, group: Resources, audit: false, , icon: "<i class=\"fa fa-leanpub\"></i>", show_mosaic_button: false }
+  edcoms.resources.admin.resource_type:
+    class: EdcomsCMS\ResourcesBundle\Admin\ResourceTypeAdmin
+    arguments: [~, EdcomsCMS\ResourcesBundle\Entity\ResourceType, ~]
+    tags:
+        - { name: sonata.admin, manager_type: orm, label: Types, group: Resources, audit: false, , icon: "<i class=\"fa fa-leanpub\"></i>", show_mosaic_button: false }

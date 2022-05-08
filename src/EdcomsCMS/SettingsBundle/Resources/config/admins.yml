@@ -1,0 +1,9 @@
+services:
+   edcoms.settings.admin.cms_settings:
+      class: EdcomsCMS\SettingsBundle\Admin\CMSSettingsAdmin
+      arguments: [~, null, EdcomsCMS\SettingsBundle\Admin\Controller\SettingsController, ~  ]
+      tags:
+      - { name: sonata.admin, manager_type: orm, label: Global Settings, group: Settings, audit: false,  icon: "<i class=\"fa fa-cogs\"></i>", show_mosaic_button: false }
+
+#  Controllers
+   EdcomsCMS\SettingsBundle\Admin\Controller\SettingsController: ~

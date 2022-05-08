@@ -1,0 +1,28 @@
+.m-items {
+}
+
+.m-items__header {
+    font-weight: bold;
+}
+
+.m-items__item {
+    padding: 10px 20px;
+}
+
+.m-items__cell--last {
+    float: right;
+}
+
+.m-item {
+    border-top: 1px solid $secondary-color;
+}
+
+.m-item__info {
+
+}
+
+.m-item__actions {
+    .material-icons {
+        color: $primary-color;
+    }
+}

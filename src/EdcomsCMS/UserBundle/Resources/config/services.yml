@@ -1,0 +1,26 @@
+services:
+    edcoms.user.listener.doctrine_event_listener:
+        class: EdcomsCMS\UserBundle\Listener\DoctrineEventListener
+        arguments: ["%edcoms.user.user_mapping%"]
+        tags:
+            - { name: doctrine.event_listener, event: loadClassMetadata }
+    edcoms.user.command.rtbf_user:
+        class: EdcomsCMS\UserBundle\Command\RTBFUserCommand
+        tags:
+        - { name: console.command, id: edcoms.uawe.command.rtbf_user }
+        arguments: ['@edcoms.user.service.rtbf_user', '@logger']
+    edcoms.user.command.rtbf_check:
+        class: EdcomsCMS\UserBundle\Command\RTBFCheckUserCommand
+        tags:
+        - { name: console.command, id: edcoms.user.command.rtbf_user }
+        arguments: ['@edcoms.user.service.rtbf_user', '@logger']
+    edcoms.user.service.rtbf_user:
+        class: EdcomsCMS\UserBundle\Service\RTBFUserService
+        public: false
+        arguments: ['@doctrine.orm.entity_manager', '@service_container', '@security.authorization_checker','@edcoms.user.rtbf_extensions.pool']
+    edcoms.user.controller.user_controller:
+        class: EdcomsCMS\UserBundle\Controller\UserCRUDController
+        arguments: ['@edcoms.user.service.rtbf_user', '@security.authorization_checker']
+    edcoms.user.rtbf_extensions.pool:
+        class: EdcomsCMS\UserBundle\Service\RTBFUserExtensionPool
+        public: false

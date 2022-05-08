@@ -1,0 +1,11 @@
+services:
+  edcoms.resources.form_type.resource.base:
+      class: EdcomsCMS\ResourcesBundle\Form\Type\ResourceType
+      arguments: ['@edcoms.resources.service.configuration']
+      tags:
+          - { name: form.type }
+  edcoms.resources.form_type.resource.video:
+      class: EdcomsCMS\ResourcesBundle\Form\Type\VideoResourceType
+      arguments: ['@edcoms.resources.service.configuration']
+      tags:
+          - { name: form.type }

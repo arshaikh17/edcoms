@@ -1,0 +1,24 @@
+<div class="m-card" ng-if="vm.items.length">
+    <div class="m-card__content m-card__content--padding u-clearfix">
+        <header>
+            <h1 class="m-card__header">{{ vm.title }}</h1>
+        </header>
+        <p class="m-card__introduction" ng-bind="vm.message"></p>
+        <div permissions="user;create" class="m-metadata m-metadata--outside m-metadata--grey m-metadata--small">
+            <a class="m-btn m-btn--sq  m-btn--primary u-float-left" ng-href="#users/create">
+                <i class="material-icons">&#xE145;</i>
+                <label class="m-btn__label ng-binding">add</label>
+            </a>
+            <p class="m-metadata__item">Add a new user</p>
+        </div>
+        <cms-items-list
+            items="vm.items"
+            messages="vm.messages"
+            actions="vm.itemsActions"
+            call="vm.callFunction(cmsFn, item)"
+            >
+        </cms-items-list>
+    </div>
+    <cms-actions actions="vm.action"></cms-actions>
+</div>
+<cms-spinner ng-if="vm.loading"></cms-spinner>

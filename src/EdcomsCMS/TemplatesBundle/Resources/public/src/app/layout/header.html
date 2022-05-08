@@ -1,0 +1,32 @@
+<header class="l-header m-header">
+  <div class="m-header__usernav m-usernav u-clearfix is-hidden js-usernav">
+    <div class="l-inner-content">
+      <h1 class="m-usernav__item u-float-left">Hello,
+        {{ vm.user.person.firstName }}
+        {{ vm.user.person.lastName }}</h1>
+      <ul class="m-usernav__item u-no-list u-float-right">
+        <li>
+          <a href="/cms/logout">Logout</a>
+        </li>
+      </ul>
+    </div>
+  </div>
+  <div class="m-header__nav">
+    <div class="l-inner-content">
+      <div class="m-header__row">
+        <div class="u-float-right">
+          <nav class="m-header__item m-header__nav-action" cms-user-nav>
+            <span class="m-header__button">
+              <i class="material-icons">&#xE7FD;</i>
+            </span>
+          </nav>
+        </div>
+      </div>
+      <div class="m-header__row">
+        <div class="m-header__item">
+          <cms-main-menu></cms-main-menu>
+        </div>
+      </div>
+    </div>
+  </div>
+</header>

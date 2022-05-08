@@ -1,0 +1,46 @@
+badges_index:
+    path: /cms/badges/index
+    defaults: {_controller: EdcomsCMSBadgeBundle:Badge:index}
+    methods: [GET]
+
+badges_edit:
+    path: /cms/badges/edit/{badgeId}
+    defaults: {_controller: EdcomsCMSBadgeBundle:Badge:edit, badgeId: -1}
+    methods: [GET, POST]
+
+badges_delete:
+    path: /cms/badges/delete/{badgeId}
+    defaults: {_controller: EdcomsCMSBadgeBundle:Badge:delete}
+    methods: [GET]
+
+badges_award_all:
+    path: /cms/badges/award/all
+    defaults: {_controller: EdcomsCMSBadgeBundle:Badge:awardAll}
+    methods: [GET]
+
+badges_award_badge:
+    path: /cms/badges/award/{badgeId}
+    defaults: {_controller: EdcomsCMSBadgeBundle:Badge:awardBadge}
+    methods: [GET]
+
+badges_award_to_user:
+    path: /cms/badges/award/{badgeId}/{userId}
+    defaults: {_controller: EdcomsCMSBadgeBundle:Badge:awardToUser}
+    methods: [GET]
+
+badges_get_by_user:
+    path: /cms/badges/get/user/{userId}
+    defaults: {_controller: EdcomsCMSBadgeBundle:Badge:getByUser, userId: -1}
+    methods: [GET, POST]
+
+badges_get_criteria_list:
+    path: /cms/badges/get/criterialist
+    defaults: {_controller: EdcomsCMSBadgeBundle:Badge:getCriteriaList}
+    methods: [GET]
+
+badges_get:
+    path: /cms/badges/get/{badgeId}
+    defaults: {_controller: EdcomsCMSBadgeBundle:Badge:get, badgeId: -1}
+    methods: [GET]
+
+

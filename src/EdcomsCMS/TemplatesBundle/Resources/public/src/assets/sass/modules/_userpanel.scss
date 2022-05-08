@@ -1,0 +1,26 @@
+.m-userpanel {
+    background: #fff;
+    position: relative;
+    @include card(1);
+    margin-bottom: 30px;
+}
+
+.m-userpanel__content {
+    padding: 20px 20px 30px;
+}
+
+.m-userpanel__header {
+    font-weight: bold;
+    @include font-size(27px);
+}
+
+.m-userpanel__text {
+    margin-bottom: 0;
+}
+
+
+.m-userpanel__button {}
+
+.m-userpanel--small {
+    width: 370px;
+}

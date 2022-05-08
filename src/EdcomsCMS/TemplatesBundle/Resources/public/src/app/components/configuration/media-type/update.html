@@ -1,0 +1,55 @@
+<div class="m-card">
+    <form name="vm.MediaTypeCreate" class="m-form" novalidate>
+        <div class="m-card__content">
+            <h3>{{ vm.title }}</h3>
+            <div class="m-form__block">
+                <div class="m-form__block-field">
+                    <label for="MediaTypeCreateTarget" class="m-form__label">Target <span
+                            class="m-form__vm.required">*</span></label>
+                    <input id="MediaTypeCreateTarget" class="m-form__field" type="text" name="Target"
+                           ng-model="vm.mediatype.MediaTypeCreate.target" ng-required="vm.required.target"/>
+                    <div ng-show="vm.required.target && (vm.MediaTypeCreate.$submitted || vm.MediaTypeCreate.Target.$touched)">
+                        <div ng-show="vm.MediaTypeCreate.Target.$error.required" class="m-form__message--error">Required.
+                        </div>
+                    </div>
+                </div>
+                <div class="m-form__block-field">
+                    <label for="MediaTypeCreateFileType" class="m-form__label">File type <span class="m-form__vm.required">*</span></label>
+                    <select id="MediaTypeCreateFileType" class="m-form__field m-form__field--select" type="text"
+                            name="FileType"
+                            ng-model="vm.mediatype.MediaTypeCreate.filetype" ng-required="vm.required.filetype"
+                            ng-options="key as value for (key, value) in vm.mimetypes">
+
+                    </select>
+                    <div ng-show="vm.required.filetype && (vm.MediaTypeCreate.$submitted || vm.MediaTypeCreate.FileType.$touched)">
+                        <div ng-show="vm.MediaTypeCreate.FileType.$error.required" class="m-form__message--error">
+                            Required.
+                        </div>
+                    </div>
+                </div>
+
+                <div class="m-form__block-field">
+                    <label for="MediaTypeCreateCompression" class="m-form__label">Compression</label>
+                    <input type="text" id="MediaTypeCreateCompression" class="m-form__field" name="Compression"
+                           ng-model="vm.mediatype.MediaTypeCreate.compression"/>
+                </div>
+
+                <div class="m-form__block-field">
+                    <label for="MediaTypeCreateWidth" class="m-form__label">Width</label>
+                    <input type="number" id="MediaTypeCreateWidth" class="m-form__field" name="Width"
+                           ng-model="vm.mediatype.MediaTypeCreate.width"/>
+                </div>
+
+                <div class="m-form__block-field">
+                    <label for="MediaTypeCreateHeight" class="m-form__label">Height</label>
+                    <input type="text" id="MediaTypeCreateHeight" class="m-form__field" name="Height"
+                           ng-model="vm.mediatype.MediaTypeCreate.height"/>
+                </div>
+            </div>
+        </div>
+        <cms-actions actions="vm.action" id="vm.mediatype.MediaTypeCreate.id"
+                     call="vm.callFunction(cmsFn)"></cms-actions>
+
+    </form>
+
+</div>

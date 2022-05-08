@@ -1,0 +1,20 @@
+.m-alphabet {}
+
+  .m-alphabet__item {
+    display: inline-block;
+    margin-right: 5px;
+    text-transform: uppercase;
+    font-weight: bold;
+    @include font-size(16px);
+  }
+
+    .m-alphabet__link {
+      &.is-active,
+      &:hover {
+          color: $edblue;
+      }
+
+      &:hover {
+          cursor: pointer;
+      }
+    }

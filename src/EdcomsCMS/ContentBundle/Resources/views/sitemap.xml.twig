@@ -1,0 +1,24 @@
+{# XML Sitemap #}
+<?xml version="1.0" encoding="UTF-8"?>
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
+        {% for parent in contents %}
+         <url>
+             <loc>{{ hostname }}{{parent.link}}</loc>
+             </url>
+                {% if parent.children is defined  %}
+                    {% for first_child in parent.children %}
+                        <url> <loc>{{ hostname }}{{first_child.link}}</loc> </url>
+                         {% if first_child.children is defined %}
+                            {% for second_child in first_child.children %}
+                                <url> <loc>{{ hostname }}{{second_child.link}}</loc> </url>
+                                    {% if second_child.children is defined %}
+                                        {% for third_child in second_child.children %}
+                                            <url> <loc>{{ hostname }}{{third_child.link}}</loc></url>
+                                        {% endfor %}
+                                    {% endif %}
+                            {% endfor %}
+                         {% endif %}
+                    {% endfor %}
+                {% endif %}
+        {% endfor %}
+</urlset>

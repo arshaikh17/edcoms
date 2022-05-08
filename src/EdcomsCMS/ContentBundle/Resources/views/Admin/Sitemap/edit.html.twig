@@ -1,0 +1,9 @@
+{% extends 'SonataAdminBundle:CRUD:base_edit.html.twig' %}
+
+{% block sonata_form_actions %}
+    {{ parent() }}
+
+    {% if object.url is defined and object.url is not null%}
+        <a class="btn btn-info" href="{{ url('cms', { path: object.url }) }}" target="_blank" ><i class="fa fa-eye" aria-hidden="true"></i> View Page</a>
+    {% endif  %}
+{% endblock sonata_form_actions %}

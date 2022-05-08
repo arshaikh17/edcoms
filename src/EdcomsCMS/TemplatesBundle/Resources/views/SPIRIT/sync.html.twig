@@ -1,0 +1,16 @@
+{% if status is same as('unsent') %}
+    <p>Enter a date from and date to below - using format yyyy-mm-dd</p>
+{% elseif status %}
+    <p>{{ count }} successfully synchronised.</p>
+    {% for user in updates %}
+        <li>{{ user }}</li>
+    {% endfor %}
+{% else %}
+    <p>Unfortunately an error occurred. Please try again.</p>
+{% endif %}
+
+<form method="POST">
+    <input type="text" name="dateFrom" placeholder="Date From" />
+    <input type="text" name="dateTo" placeholder="Date To" />
+    <input type="submit" name="sync" value="Sync with SPIRIT" />
+</form>

@@ -1,0 +1,47 @@
+.m-sidemenu {
+    position: relative;
+    @include card(2);
+    margin-bottom: gutter(12);
+}
+
+    .m-sidemenu__header {
+    }
+        .m-sidemenu__icon {
+            @include font-size(35px);
+        }
+
+    .m-sidemenu__title {
+        margin: 0;
+        @include font-size(16px);
+    }
+
+    .m-sidemenu__content {
+        padding: 10px;
+        background: $secondary-color-light;
+    }
+
+    .m-sidemenu__button {
+        position: relative;
+        background: $white;
+        height: 48px;
+        line-height: 48px;
+    }
+        .m-sidemenu__button--primary {
+            background: $primary-color;
+        }
+        .m-sidemenu__button-label {
+            margin: 0;
+            padding: 15px 20px;
+            width: 85%;
+            line-height: 1;
+        }
+        .m-sidemenu__button-label--uppercase {
+            text-transform: uppercase;
+        }
+
+    .m-sidemenu__action {
+        position: absolute;
+        top: 0;
+        right: 0;
+        padding: 6px 6px 7px;
+    }

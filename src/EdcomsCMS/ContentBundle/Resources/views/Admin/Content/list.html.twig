@@ -1,0 +1,7 @@
+{% extends 'SonataAdminBundle:CRUD:base_list.html.twig' %}
+
+{%- block actions -%}
+    {% if admin.hasAccess('create') %}
+       {% include '@EdcomsCMSContent/Admin/Content/actions.html.twig' %}
+    {% endif %}
+{%- endblock -%}

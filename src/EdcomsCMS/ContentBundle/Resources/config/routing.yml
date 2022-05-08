@@ -1,0 +1,219 @@
+edcoms_cms_templates:
+    resource: "@EdcomsCMSTemplatesBundle/Controller/"
+    type:     annotation
+    prefix:   /
+
+edcoms_cms_content:
+    resource: "@EdcomsCMSContentBundle/Controller/"
+    type:     annotation
+    prefix:   /
+
+edcoms_cms_auth:
+    resource: "@EdcomsCMSAuthBundle/Controller/"
+    type:     annotation
+    prefix:   /
+
+
+index:
+    path: /cms
+    defaults: {_controller: EdcomsCMSContentBundle:Dashboard:index}
+    methods: [GET]
+users:
+    path: /cms/users
+    defaults: {_controller: EdcomsCMSContentBundle:Users:index}
+    methods: [GET]
+users_get:
+    path: /cms/users/get
+    defaults: {_controller: EdcomsCMSContentBundle:Users:get}
+    methods: [GET]
+users_getdeleted:
+    path: /cms/users/getdeleted
+    defaults: {_controller: EdcomsCMSContentBundle:Users:getdeleted}
+    methods: [GET]
+users_update:
+    path: /cms/users/update/{id}
+    defaults: {_controller: EdcomsCMSContentBundle:Users:update, id: -1}
+    methods: [GET, POST]
+users_delete:
+    path: /cms/users/delete/{id}
+    defaults: {_controller: EdcomsCMSContentBundle:Users:delete}
+    methods: [DELETE]
+users_restore:
+    path: /cms/users/restore/{id}
+    defaults: {_controller: EdcomsCMSContentBundle:Users:restore}
+    methods: [GET,POST]
+   
+structure_move:
+    path: /cms/structure/move/{id}
+    defaults: {_controller: EdcomsCMSContentBundle:Structure:move}
+    methods: [POST]
+structure_deletedlist:
+    path: /cms/structure/deletedlist
+    defaults: {_controller: EdcomsCMSContentBundle:Structure:deletedlist}
+    methods: [GET]
+structure_restore:
+    path: /cms/structure/restore/{id}
+    defaults: {_controller: EdcomsCMSContentBundle:Structure:restore, id: -1}
+    methods: [GET]
+
+content_get:
+    path: /cms/content/get/{structure}
+    defaults: {_controller: EdcomsCMSContentBundle:Content:get}
+    methods: [GET]
+content_update:
+    path: /cms/content/update/{id}/{content_typeID}
+    defaults: {_controller: EdcomsCMSContentBundle:Content:update, id: -1, content_typeID: -1}
+    methods: [GET, POST]
+content_approve:
+    path: /cms/content/approve/{id}
+    defaults: {_controller: EdcomsCMSContentBundle:Content:approve}
+    methods: [GET]
+content:
+    path: /cms/content
+    defaults: {_controller: EdcomsCMSContentBundle:Content:index}
+    methods: [GET]
+content_update_field:
+    path: /cms/update/{type}/{id}
+    defaults: {_controller: EdcomsCMSContentBundle:Content:UpdateField}
+    methods: [POST]
+    
+content_type_get:
+    path: /cms/content_type/get
+    defaults: {_controller: EdcomsCMSContentBundle:Content:type_get}
+    methods: [GET]
+content_type_update:
+    path: /cms/content_type/update/{id}
+    defaults: {_controller: EdcomsCMSContentBundle:Content:type_update, id: -1}
+    methods: [GET, POST]
+content_type:
+    path: /cms/content_type
+    defaults: {_controller: EdcomsCMSContentBundle:Content:type_index}
+    methods: [GET]
+
+configuration:
+     path: /cms/configuration
+     defaults: {_controller: EdcomsCMSContentBundle:Configuration:index}
+     methods: [GET]
+
+create_short_url:
+    path: /cms/API/shortURL/create
+    defaults: {_controller: EdcomsCMSContentBundle:API:createShortURL}
+    methods: [POST]
+
+log_activity:
+    path: /activity
+    defaults: {_controller: EdcomsCMSContentBundle:Activity:post}
+    methods: [POST]
+     
+login:
+    path: /cms/login/{xhr}
+    defaults: {_controller: EdcomsCMSAuthBundle:Security:login, xhr: no}
+    methods: [GET]
+login_check:
+    path: /cms/login_check
+logout:
+    path: /cms/logout
+    
+# Responsive File Manager Routes
+cms_filemanager_dialog:
+    path: /cms/filemanager/dialog.php
+    defaults: {_controller: EdcomsCMSContentBundle:Filemanager:dialog}
+    methods: [GET]
+cms_filemanager_upload:
+    path: /cms/filemanager/upload.php
+    defaults: {_controller: EdcomsCMSContentBundle:Filemanager:upload}
+    methods: [POST]
+cms_filemanager_ajax_calls:
+    path: /cms/filemanager/ajax_calls.php
+    defaults: {_controller: EdcomsCMSContentBundle:Filemanager:ajax_calls}
+    methods: [GET,POST]
+cms_filemanager_execute:
+    path: /cms/filemanager/execute.php
+    defaults: {_controller: EdcomsCMSContentBundle:Filemanager:execute}
+    methods: [GET,POST]
+cms_filemanager_save_img:
+    path: /cms/filemanager/ajax/save_img
+    defaults: {_controller: EdcomsCMSContentBundle:Filemanager:ajax_save_img}
+    methods: [POST]
+cms_filemanager_media_preview:
+    path: /cms/filemanager/ajax/media_preview/{filename}
+    requirements: {filename: ".+"}
+    defaults: {_controller: EdcomsCMSContentBundle:Filemanager:ajax_media_preview}
+    methods: [GET]
+cms_filemanager_preview_text:
+    path: /cms/filemanager/ajax/text_preview/{filename}
+    requirements: {filename: ".+"}
+    defaults: {_controller: EdcomsCMSContentBundle:Filemanager:ajax_text_preview}
+    methods: [GET]
+cms_filemanager_preview_google:
+    path: /cms/filemanager/ajax/google_preview/{filename}
+    requirements: {filename: ".+"}
+    defaults: {_controller: EdcomsCMSContentBundle:Filemanager:ajax_google_preview}
+    methods: [GET]
+cms_filemanager_preview_viewerjs:
+    path: /cms/filemanager/ajax/viewerjs_preview/{filename}
+    requirements: {filename: ".+"}
+    defaults: {_controller: EdcomsCMSContentBundle:Filemanager:ajax_viewerjs_preview}
+    methods: [GET]
+
+cms_xhr_rating:
+    path: /xhr/rating/{structureID}/{ratingVal}
+    defaults: {_controller: EdcomsCMSContentBundle:XHR:rating}
+    methods: [POST]
+
+cms_xhr_get_item:
+    path: /xhr/get/{item}/{ids}
+    defaults: {_controller: EdcomsCMSContentBundle:XHR:get}
+
+short_url:
+    path: /shortURL/{friendlyLink}
+    defaults: {_controller: EdcomsCMSContentBundle:API:shortURL}
+
+# Notifiction routes
+notification_get:
+    path: /cms/notifications/{id}
+    defaults: { _controller: EdcomsCMSContentBundle:Notification:get, id: -1 }
+    methods: [GET]
+
+notification_new:
+    path: /cms/notifications
+    defaults: { _controller: EdcomsCMSContentBundle:Notification:new }
+    methods: [POST]
+
+notification_update:
+    path: /cms/notifications/update/{id}
+    defaults: { _controller: EdcomsCMSContentBundle:Notification:update }
+    methods: [POST]
+
+notification_delete:
+    path: /cms/notifications/delete/{id}
+    defaults: { _controller: EdcomsCMSContentBundle:Notification:delete }
+    methods: [GET]
+
+#simple load more route to return the requested number of
+#notification instancess for the currently logged in user
+notification_loadmore:
+    path: /notifications/load/{offset}/{limit}
+    defaults: { _controller: EdcomsCMSContentBundle:Notification:load }
+    methods: [GET]
+
+#trigger the sending a notification
+notification_send:
+    path: /cms/notifications/send/{id}
+    defaults: { _controller: EdcomsCMSContentBundle:Notification:send }
+    methods: [GET]
+
+# Sitemap.xml
+cms_sitemap:
+  path: /sitemap.xml
+  defaults: { _controller: EdcomsCMSContentBundle:Sitemap:index }
+
+
+cms:
+    path: /{path}
+    requirements: {path: ".+"}
+    defaults: {_controller: EdcomsCMSContentBundle:Display:index}
+
+cms_home:
+    path: /
+    defaults: {_controller: EdcomsCMSContentBundle:Display:home}

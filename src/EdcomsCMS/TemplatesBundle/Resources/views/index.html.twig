@@ -1,0 +1,13 @@
+{% extends 'EdcomsCMSTemplatesBundle::base.html.twig' %}
+
+{% block content %}
+<cms-header></cms-header>
+<div class="l-content">
+    <div class="l-inner-content">
+        <cms-side-menu></cms-side-menu>
+        <main class="l-M-2of3 l-L-3of4 l-M-last l-L-last">
+            <div ng-view></div>
+        </main>
+    </div>
+</div>
+{% endblock %}

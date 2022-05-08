@@ -1,0 +1,60 @@
+{% extends '@SonataAdmin/standard_layout.html.twig' %}
+
+
+{% block sonata_admin_content %}
+
+    <div class="sonata-ba-delete">
+        <div class="box box-danger">
+            <div class="box-header">
+                <h4 class="box-title">Confirm action "Right to be forgotten"</h4>
+            </div>
+                {{ form_start(form) }}
+                {% set formErrors = form_errors(form) %}
+
+                {% if formErrors != '' %}
+                    <div class="row">
+                        <div class="col-md-8">
+                            <div class="callout callout-danger">
+                                <p>{{ form_errors(form) }}</p>
+                            </div>
+                        </div>
+                    </div>
+                {% endif %}
+
+                <div class="box-body">
+                    <div class="row">
+                        <div class="col-md-6">
+                            <div class="box">
+                                <div class="box-header with-border">
+                                    <h3 class="box-title">User's overview</h3>
+                                </div>
+                                <!-- /.box-header -->
+                                <div class="box-body">
+                                    <table class="table table-bordered">
+                                        {% for key in userOverview|keys %}
+                                            <tr>
+                                                <td><strong>{{ key }}</strong></td>
+                                                <td>{{ userOverview[key] }}</td>
+                                            </tr>
+                                        {% endfor %}
+                                    </table>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <p>Are you sure you want to apply the "Right to be forgotten" action to user with the above details?</p>
+                    <p>Please note that this action <span style="text-decoration: underline">will delete the personal data</span> of user with email <strong>{{ object.email }}</strong></p>
+                    <p style="color: red; font-weight: bold">This action cannot be undone.</p>
+                </div>
+                <div class="box-footer clearfix">
+                    {{ form_widget(form.rtbf_user, { 'attr': {'class': 'btn btn-danger'} }) }} or
+                    <a class="btn btn-success" href="{{ admin.generateUrl('edit', { id: object.id}) }}">
+                        <i class="fa fa-th-list" aria-hidden="true"></i>
+                        Return to edit mode
+                    </a>
+                </div>
+            {{ form_end(form) }}
+        </div>
+    </div>
+
+{% endblock %}

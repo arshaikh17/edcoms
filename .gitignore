@@ -1,0 +1,9 @@
+node_modules/
+bower_components
+.DS_Store
+vendor
+src/EdcomsCMS/TemplatesBundle/Resources/public/assets/.sass-cache
+src/EdcomsCMS/TemplatesBundle/Resources/public/bower_components/*
+src/EdcomsCMS/TemplatesBundle/Resources/public/node_modules/*
+npm-debug.log
+dist

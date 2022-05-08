@@ -1,0 +1,7 @@
+services:
+  edcoms.content.service.content_service:
+      class: EdcomsCMS\ContentBundle\Service\Content\ContentService
+      arguments: ['@edcoms.content.service.configuration','AppBundle\Entity', 'AppBundle/Entity', '%kernel.root_dir%', '@annotation_reader']
+  edcoms.content.service.url_redirect:
+      class: EdcomsCMS\ContentBundle\Service\URLRedirect\URLRedirectService
+      arguments: ['@doctrine.orm.entity_manager']

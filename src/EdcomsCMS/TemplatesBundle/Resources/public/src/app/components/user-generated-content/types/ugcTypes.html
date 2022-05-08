@@ -1,0 +1,27 @@
+<div class="m-card">
+    <div class="m-card__content">
+        <h1>{{ vm.title }}</h1>
+        <p class="m-card__introduction">Here is the user generated content types.
+            <span permissions="userGeneratedContent.types;create">Feel free to create new one using the add button below.</span>
+        </p>
+        <div class="m-card m-card--grey m-card--flat l-M-1of2">
+            <div ng-if="vm.ugcTypes.length" class="m-card__content">
+                <h3>Existing content types</h3>
+                <ul class="m-tree">
+                    <li ng-repeat="ugcT in vm.ugcTypes" class="m-tree__leaf">
+                        <i class="m-tree__icon m-tree__icon--small material-icons">&#xE0BF;</i>
+                        <a ng-href="#/user-generated-content/type/update/{{ ugcT.id }}" permissions="userGeneratedContent.types;edit">
+                            {{ ugcT.name }}
+                        </a>
+                    </li>
+                </ul>
+            </div>
+            <div ng-if="!vm.ugcTypes.length" class="m-card__content">
+                <p class="m-card__introduction">There is no user generated content type yet. Let's create them using the button below.</p>
+            </div>
+            <div permissions="userGeneratedContent.types;create">
+                <cms-actions actions="vm.action"></cms-actions>
+            </div>
+        </div>
+    </div>
+</div>

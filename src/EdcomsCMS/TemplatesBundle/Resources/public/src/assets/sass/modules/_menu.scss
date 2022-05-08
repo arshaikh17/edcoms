@@ -1,0 +1,18 @@
+.m-menu {
+
+}
+
+.m-menu__item {
+    border-right: 1px solid $secondary-color-dark;
+    float: left;
+    &.is-active, &:hover {
+        background: $primary-color;
+        .m-menu__icon {
+            color: $secondary-color-dark;
+        }
+    }
+}
+
+.m-menu__icon {
+    color: $white;
+}

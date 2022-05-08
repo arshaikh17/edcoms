@@ -1,0 +1,7 @@
+EdcomsCMS\ResourcesBundle\Model\BaseResourceTopic:
+    exclusion_policy: ALL
+    properties:
+      title:
+        expose: true
+      slug:
+        expose: true

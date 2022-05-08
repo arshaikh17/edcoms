@@ -1,0 +1,29 @@
+<html ng-app="cms">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title ng-bind="title"></title>
+
+    <link rel="stylesheet" href="/bundles/edcomscmstemplates/bower_components/ng-dialog/css/ngDialog-theme-plain.min.css">
+    <link rel="stylesheet" href="/bundles/edcomscmstemplates/bower_components/toastr/toastr.min.css"/>
+
+    {% stylesheets 'bundles/edcomscmstemplates/dist/assets/css/main.css' filter='cssrewrite' %}
+        <link rel="stylesheet" href="{{ asset_url }}"/>
+    {% endstylesheets %}
+
+    <!-- Tinymce needs to be imported this way for plugins import to work -->
+    <script src="/bundles/edcomscmstemplates/bower_components/tinymce/tinymce.min.js"></script>
+
+    {# Google font include #}
+    <link href='//fonts.googleapis.com/css?family=Roboto:400,100,300,500,700,900' rel='stylesheet' type='text/css'>
+</head>
+<body id="top">
+{% block content %}{% endblock %}
+
+{% javascripts '@EdcomsCMSTemplatesBundle/Resources/public/dist/assets/js/main.js' %}
+    <script src="{{ asset_url }}"></script>
+{% endjavascripts %}
+
+</body>
+</html>

@@ -1,0 +1,38 @@
+{% extends 'EdcomsCMSAdminBundle::layout.html.twig' %}
+
+{% block content %}
+    {% form_theme settings_form 'SonataDoctrineORMAdminBundle:Form:form_admin_fields.html.twig' %}
+    {{ form_start(settings_form) }}
+        <div class="col-md-12">
+            <div class="nav-tabs-custom">
+                <ul class="nav nav-tabs" role="tablist">
+                    {% for choice in edcoms_get_all_settings_categories() %}
+                        <li{% if loop.index == 1 %} class="active"{% endif %}><a href="#tab_{{ choice }}_{{ loop.index }}" data-toggle="tab"><i class="fa fa-exclamation-circle has-errors hide" aria-hidden="true"></i> {{ choice }}</a></li>
+                    {% endfor %}
+                </ul>
+                <div class="tab-content">
+                    {% for choice in edcoms_get_all_settings_categories() %}
+                        <div class="tab-pane fade in {% if loop.index == 1 %} {{ 'active' }} {% endif %}" id="tab_{{ choice }}_{{ loop.index }}">
+                            <div class="box-body  container-fluid">
+                                <div class="sonata-ba-collapsed-fields">
+                                    {% for setting in settings_form.children %}
+                                        {% if setting.vars.attr.category|default('')|lower|trim == choice|lower|trim %}
+                                            {{ form_row(setting) }}
+                                        {% endif %}
+                                    {% endfor %}
+                                </div>
+                            </div>
+                        </div>
+                    {% endfor %}
+                </div>
+            </div>
+        </div>
+        {% block formactions %}
+            <div class="sonata-ba-form-actions well well-small form-actions">
+                {% block sonata_form_actions %}
+                    <button type="submit" class="btn btn-success" name="btn_update_and_edit"><i class="fa fa-save" aria-hidden="true"></i> {{ 'btn_update_and_edit_again'|trans({}, 'SonataAdminBundle') }}</button>
+                {% endblock %}
+            </div>
+        {% endblock formactions %}
+        {{ form_end(settings_form) }}
+{% endblock %}

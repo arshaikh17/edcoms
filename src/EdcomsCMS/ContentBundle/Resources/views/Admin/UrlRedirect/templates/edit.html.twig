@@ -1,0 +1,8 @@
+{% extends '@SonataAdmin/CRUD/edit.html.twig' %}
+
+{% block sonata_form_actions %}
+    {{ parent() }}
+    {% if object.id is not null %}
+        <a class="btn btn-info" target="_blank" href="{{ url('cms', {path: object.url}) }}"><i class="fa fa-minus-circle" aria-hidden="true"></i>Test redirect</a>
+    {% endif %}
+{% endblock %}

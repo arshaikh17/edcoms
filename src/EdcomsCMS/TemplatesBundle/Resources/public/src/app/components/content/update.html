@@ -1,0 +1,144 @@
+<div class="m-card">
+  <form name="vm.ContentCreate" class="m-form m-form--no-highlight" novalidate>
+    <div class="m-card__button">
+      <p class="m-card__button-label ng-binding">Save<span permissions="content;delete">, delete </span> or cancel</p>
+      <div class="m-card__button-action">
+        <!-- Delete is using structure id -->
+        <a class="m-btn m-btn--sq  m-btn--red" ng-href="#content/delete/{{vm.content.structure.id}}" permissions="content;delete">
+          <i class="material-icons">&#xE872;</i>
+          <label class="m-btn__label ng-binding">delete</label>
+        </a>
+        <button type="button" class="m-btn m-btn--sq  m-btn--white" ng-click="vm.back()">
+          <i class="material-icons">&#xE5C4;</i>
+          <label class="m-btn__label ng-binding">cancel</label>
+        </button>
+        <!-- Edit is using content id-->
+        <button type="submit" class="m-btn m-btn--sq m-btn--primary" ng-click="vm.updateContent()">
+          <i class="material-icons">&#xE5CA;</i>
+          <label class="m-btn__label ng-binding">submit</label>
+        </button>
+      </div>
+    </div>
+    <div class="m-card__content u-clearfix">
+      <h2>{{ vm.title }}</h2>
+      <div>
+        <div class="m-metadata m-metadata--grey" ng-show="vm.content.status">
+          <dl class="m-metadata__list">
+            <dd class="m-metadata__item m-metadata__label">Publish status:</dd>
+            <dt class="m-metadata__item m-metadata__data">{{ vm.content.status }}</dt>
+          </dl>
+        </div>
+        <div class="m-metadata" ng-class="{ 'm-metadata--grey': vm.content.structure.parent }">
+          <!-- Show parent and possibility to edit -->
+          <div class="m-metadata__content" ng-show="vm.content.structure.parent">
+            <dl class="m-metadata__list">
+              <dt class="m-metadata__item m-metadata__label">This is your content location:</dt>
+              <dd class="m-metadata__item m-metadata__data">{{ vm.selectedParent }}</dd>
+            </dl>
+            <button class="m-metadata__action m-btn m-btn--sq m-btn--primary" type="button" ng-click="vm.toggleActionTree()">
+                <i class="material-icons">&#xE89F;</i>
+                <label class="m-btn__label">Move</label>
+              </button>
+          </div>
+          <div class="m-metadata__event" ng-show="vm.actionTree">
+            <label for="content_location" class="m-metadata__even-label" ng-show="!vm.content.structure.parent">
+              Where do you want your content to be located?
+              <span class="m-form__required">*</span>
+            </label>
+            <div id="content_location" class="m-tree" ng-class="{ ' m-tree--margin': !vm.content.structure.parent }" ng-if="vm.tree">
+              <cms-tree tree="vm.tree" selected="vm.content.structure.parent" show-children="vm.showChildren(tree)" action="vm.setContentParent(item)"></cms-tree>
+            </div>
+          </div>
+        </div>
+        <div ng-show="vm.ContentCreate.$submitted">
+          <p ng-show="vm.content.structure.parent === undefined" class="m-form__message--error">Please select your content location.</p>
+        </div>
+      </div>
+
+      <div class="m-form__block" ng-show="vm.content.structure.parent !== undefined">
+        <div class="m-form__block-field">
+          <label for="ContentCreateContentType">What type of content you want to create?
+            <span class="m-form__required">*</span>
+          </label>
+          <select id="ContentCreateContentType" class="m-form__field m-form__field--long m-form__field--select" name="ContentType" ng-required="true" ng-model="vm.selectedContentType" ng-options="ct.id as ct.name for ct in vm.contentTypes" ng-change="vm.setContentData(vm.selectedContentType)"
+              ng-disabled="!vm.contentTypeEditable"></select>
+          <div ng-show="vm.ContentCreate.$submitted">
+            <p ng-show="vm.ContentCreate.ContentType.$error.required" class="m-form__message--error">Please select a content type.</p>
+          </div>
+        </div>
+      </div>
+      <div class="m-form__block" ng-if="vm.fields && !vm.isSystemContentType">
+        <div class="m-form__block-field">
+          <label for="ContentCreateTemplateFiles">What template do you want to use?
+            <span class="m-form__required">*</span>
+          </label>
+          <select id="ContentCreateTemplateFiles" class="m-form__field m-form__field--long m-form__field--select" name="TemplateFiles" ng-required="true" ng-model="vm.content.templateFile" ng-options="tf.id as tf.templateFile for tf in vm.template_files"></select>
+          <div ng-show="vm.ContentCreate.$submitted">
+            <p ng-show="vm.ContentCreate.TemplateFiles.$error.required" class="m-form__message--error">
+              Please select a template file.
+            </p>
+          </div>
+        </div>
+      </div>
+      <div class="m-form__block" ng-show="vm.fields">
+        <h2>Content</h2>
+        <div class="m-form__block-field">
+          <label for="ContentCreateTitle" class="m-form__label">Title
+            <span class="m-form__required">*</span>
+          </label>
+          <input id="ContentCreateTitle" class="m-form__field" type="text" name="Title" ng-required="true" ng-model="vm.content.title" />
+          <div ng-show="vm.ContentCreate.$submitted">
+            <div ng-show="vm.ContentCreate.Title.$error.required" class="m-form__message--error">Required.
+            </div>
+          </div>
+        </div>
+        <div class="m-form__block-field">
+          <label for="ContentCreateStructureLink" class="m-form__label">Friendly URL</label>
+          <input id="ContentCreateStructureLink" class="m-form__field" type="text" name="StructureLink" ng-model="vm.content.structure.link" />
+        </div>
+        <div class="m-form__block-field">
+          <label for="ContentCreateStructurePriority" class="m-form__label">Priority
+            <small class="m-form__description">1 is the highest priority</small>
+          </label>
+          <input id="ContentCreateStructurePriority" class="m-form__field" type="number" name="StructurePriority" ng-model="vm.content.structure.priority" />
+        </div>
+        <div class="m-form__block-field">
+          <label for="ContentCreateStructureRateable" class="m-form__label">Rating
+            <small class="m-form__description">Can users rate this content?</small>
+          </label>
+          <input id="ContentCreateStructureRateable" class="m-form__field--checkbox" type="checkbox" name="StructureRateable" ng-model="vm.content.structure.rateable" />
+        </div>
+        <div class="m-form__block-field">
+          <label for="ContentCreateStructureVisible" class="m-form__label">
+            Visible
+            <small class="m-form__description">Can users see this content?</small>
+          </label>
+          <input id="ContentCreateStructureVisible" class="m-form__field--checkbox" type="checkbox" name="StructureVisible" ng-model="vm.content.structure.visible" />
+        </div>
+      </div>
+      <div class="m-form__block" ng-if="vm.fields">
+        <h3 class="m-form__block-title">Fields</h3>
+        <cms-group-fields fields="vm.fields" content-form="vm.content" form="vm.ContentCreate"></cms-group-fields>
+      </div>
+    </div>
+    <div class="m-card__button">
+      <p class="m-card__button-label ng-binding">Save<span permissions="content;delete">, delete </span>or cancel</p>
+      <div class="m-card__button-action">
+        <!-- Delete is using structure id -->
+        <a class="m-btn m-btn--sq  m-btn--red" ng-href="#content/delete/{{vm.content.structure.id}}" permissions="content;delete">
+          <i class="material-icons">&#xE872;</i>
+          <label class="m-btn__label ng-binding">delete</label>
+        </a>
+        <button type="button" class="m-btn m-btn--sq  m-btn--white" ng-click="vm.back()">
+          <i class="material-icons">&#xE5C4;</i>
+          <label class="m-btn__label ng-binding">cancel</label>
+        </button>
+        <!-- Edit is using content id-->
+        <button type="submit" class="m-btn m-btn--sq  m-btn--primary" ng-click="vm.updateContent()">
+          <i class="material-icons">&#xE5CA;</i>
+          <label class="m-btn__label ng-binding">submit</label>
+        </button>
+      </div>
+    </div>
+  </form>
+</div>

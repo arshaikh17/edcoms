@@ -1,0 +1,21 @@
+{% extends '@SonataDoctrineORMAdmin/CRUD/show_orm_one_to_many.html.twig' %}
+
+{% block field %}
+    <div class="col-sm-12"><table id="example2" class="table table-bordered table-striped dataTable" role="grid" aria-describedby="example2_info">
+            <thead>
+            <tr role="row">
+                <th>Field Name</th>
+                <th>Value</th>
+            </tr>
+            </thead>
+            <tbody>
+        {% for element in value%}
+                <tr role="row" class="{{ loop.index is odd ? 'odd' : 'even' }}">
+                    <td>{{ element.customfields.label }}</td>
+                    <td>{{ element|render_relation_element(field_description) }}</td>
+                </tr>
+        {% endfor %}
+            </tbody>
+        </table>
+    </div>
+{% endblock %}

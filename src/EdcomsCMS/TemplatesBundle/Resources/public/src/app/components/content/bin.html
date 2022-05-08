@@ -1,0 +1,17 @@
+<div class="m-card" ng-if="vm.items.length">
+    <div class="m-card__content m-card__content--padding u-clearfix">
+        <header>
+            <h1 class="m-card__header">{{ vm.title }}</h1>
+        </header>
+        <p class="m-card__introduction" ng-bind="vm.message"></p>
+        <cms-items-list
+            items="vm.items"
+            messages="vm.messages"
+            actions="vm.itemsActions"
+            call="vm.callFunction(cmsFn, item)"
+            >
+        </cms-items-list>
+    </div>
+    <cms-actions actions="vm.action" ng-if="!vm.items.length"></cms-actions>
+</div>
+<cms-spinner ng-if="vm.loading"></cms-spinner>

@@ -1,0 +1,140 @@
+<div ng-repeat="cf in vm.fields track by $index">
+		<fieldset class="m-form__group" ng-show="vm.fields[$index].isEditable">
+				<h4 class="m-form__title">
+						Field
+						{{ $index + 1 }}
+						<button type="button" ng-click="vm.deleteField(vm.fields, $index)">
+								<i class="material-icons material-icons--small">&#xE872;</i>
+						</button>
+				</h4>
+				<div class="m-form__block-field m-form__block-field--small">
+						<label for="ContentTypeCreateCustomFieldsLabel{{ $index }}" class="m-form__label">Label *</label>
+						<input
+							id="ContentTypeCreateCustomFieldsLabel{{ $index }}"
+							class="m-form__field"
+							type="text"
+							name="CustomFieldsLabel"
+							ng-model="vm.fields[$index].label"
+							required/>
+				</div>
+				<div class="m-form__block-field m-form__block-field--small">
+						<label for="ContentTypeCreateCustomFieldsName{{ $index }}" class="m-form__label">Name *</label>
+						<input
+							id="ContentTypeCreateCustomFieldsName{{ $index }}"
+							class="m-form__field"
+							type="text"
+							name="CustomFieldsName"
+							ng-model="vm.fields[$index].name"
+							required/>
+				</div>
+				<div class="m-form__block-field m-form__block-field--small">
+						<label for="ContentTypeCreateCustomFieldsDesc{{ $index }}" class="m-form__label">Description *</label>
+						<input
+							id="ContentTypeCreateCustomFieldsDesc{{ $index }}"
+							class="m-form__field"
+							type="text"
+							name="CustomFieldsDescription"
+							ng-model="vm.fields[$index].description"
+							required/>
+				</div>
+
+				<div class="m-form__block-field m-form__block-field--small">
+						<label for="ContentTypeCreateCustomFieldsType{{ $index }}" class="m-form__label">Type *</label>
+						<select
+								id="ContentTypeCreateCustomFieldsType{{ $index }}"
+								class="m-form__field m-form__field--select"
+								type="text"
+								name="CustomFieldsType"
+								ng-model="vm.fields[$index].fieldType"
+								ng-change="vm.getFieldExtraData(true, $index)"
+								required>
+								<option value="text">Text</option>
+								<option value="textarea">Long textarea</option>
+								<option value="richtextarea">Rich text editor</option>
+								<option value="checkbox">Checkbox</option>
+								<!--{#<option value="select_array">Single choices (select)</option>#}-->
+								<option value="radio_array">Single choices (radio button)</option>
+								<option value="checkbox_array">Multiple choices (checkboxes)</option>
+								<option value="number">Number</option>
+								<option value="date">Date</option>
+								<option value="file">File</option>
+								<option value="image">Image</option>
+								<option value="hidden">Hidden</option>
+								<option value="content_array">Content list</option>
+								<option value="file_array">List of files</option>
+								<option value="group">Group of fields</option>
+						</select>
+				</div>
+				<div class="m-form__block-field m-form__block-field--small" ng-if="vm.fieldsOptionValues[$index].showOptionField">
+						<label for="ContentTypeCreateCustomFieldsOptions{{ $index }}" class="m-form__label">{{ vm.fieldsOptionValues[$index].optionFieldName }}</label>
+						<input id="ContentTypeCreateCustomFieldsOptions{{ $index }}" class="m-form__field" type="text" name="CustomFieldsOptions" ng-model="vm.fields[$index].options"/>
+				</div>
+				<div ng-if="vm.fields[$index].fieldType === 'content_array'">
+						<div class="m-form__block-field m-form__block-field--small">
+								<label for="ContentTypeCreateCustomFieldsContentType{{ $index }}" class="m-form__label">Select allowed content type:</label>
+								<select id="ContentTypeCreateCustomFieldsContentType{{ $index }}" class="m-form__field" name="CustomFieldsContentType" multiple ng-model="vm.fields[$index].options.contentType" ng-options="ct.id as ct.name for ct in vm.contentTypes">
+										<option value="">
+												None
+										</option>
+								</select>
+						</div>
+						<div class="m-form__block-field m-form__block-field--small">
+								<label for="ContentTypeCreateCustomFieldsMultiple{{ $index }}" class="m-form__label">Allow multiple selection:</label>
+								<input id="ContentTypeCreateCustomFieldsMultiple{{ $index }}" type="checkbox" class="m-form__field--checkbox" ng-model="vm.fields[$index].options.isMultiple"/>
+						</div>
+						<div class="m-form__block-field m-form__block-field--small">
+								<label for="ContentTypeCreateCustomFieldsRestriction{{ $index }}" class="m-form__label">Restict numer of selection to:</label>
+								<input id="ContentTypeCreateCustomFieldsRestriction{{ $index }}" type="number" class="m-form__field" ng-model="vm.fields[$index].options.restriction"/>
+						</div>
+				</div>
+				<div class="m-form__block-field m-form__block-field--small">
+						<label for="ContentTypeCreateCustomFieldsRequired{{ $index }}" class="m-form__label">Required</label>
+						<input id="ContentTypeCreateCustomFieldsRequired{{ $index }}" class="m-form__field--checkbox" type="checkbox" name="CustomFieldsRequired" ng-model="vm.fields[$index].required"/>
+				</div>
+				<div class="m-form__block-field m-form__block-field--small">
+						<label for="ContentTypeCreateCustomFieldsDefaultValue{{ $index }}" class="m-form__label">Default value</label>
+						<input id="ContentTypeCreateCustomFieldsDefaultValue{{ $index }}" class="m-form__field" type="text" name="CustomFieldsDefaultValue" ng-model="vm.fields[$index].defaultValue"/>
+				</div>
+				<div class="m-form__block-field m-form__block-field--small">
+						<label for="ContentTypeCreateCustomFieldsOrder{{ $index }}" class="m-form__label">Order of display</label>
+						<input id="ContentTypeCreateCustomFieldsOrder{{ $index }}" class="m-form__field" type="number" name="CustomFieldsOrder" ng-model="vm.fields[$index].order"/>
+				</div>
+				<div class="m-form__block-field m-form__block-field--small">
+						<label for="ContentTypeCreateCustomFieldsAdminOnly{{ $index }}" class="m-form__label">Admin only</label>
+						<input id="ContentTypeCreateCustomFieldsAdminOnly{{ $index }}" class="m-form__block-field--checkbox" type="checkbox" name="CustomFieldsAdminOnly" ng-model="vm.fields[$index].adminOnly"/>
+				</div>
+				<div class="m-form__block-field m-form__block-field--small">
+						<label for="ContentTypeCreateCustomFieldsRepeatable{{ $index }}" class="m-form__label">Is repeatable?</label>
+						<input id="ContentTypeCreateCustomFieldsRepeatable{{ $index }}" class="m-form__block-field--checkbox" type="checkbox" name="CustomFieldsRepeatable" ng-model="vm.fields[$index].repeatable"/>
+				</div>
+				<div class="u-float-right">
+						<button class="m-btn m-btn--rsd m-btn--grey" type="button" ng-click="vm.cancelEdit($index)">
+								Done
+						</button>
+				</div>
+		</fieldset>
+		<div class="m-bar" ng-show="!vm.fields[$index].isEditable">
+				<h3 class="m-bar__content">
+						{{ vm.fields[$index].label }}
+				</h3>
+				<div class="m-bar__actions">
+						<button type="button" class="m-btn m-btn--sq m-btn--primary" ng-click="vm.fields[$index].isEditable = true">
+								<i class="material-icons">&#xE254;</i>
+								<label class="m-btn__label">Edit</label>
+						</button>
+						<button type="button" class="m-btn m-btn--sq m-btn--red" ng-click="vm.deleteField(vm.fields, $index)">
+								<i class="material-icons">&#xE872;</i>
+								<label class="m-btn__label">Delete</label>
+						</button>
+				</div>
+		</div>
+		<cms-custom-fields
+      class="u-margin-20"
+      ng-if="vm.fields[$index].subfields.length"
+      fields="vm.fields[$index].subfields">
+    </cms-custom-fields>
+		<button class="m-btn m-btn--rsd m-btn--grey u-margin-20" type="button" ng-click="vm.addSubField(vm.fields, $index)" ng-if="vm.fields[$index].fieldType === 'group'">
+				<i class="m-btn__icon material-icons">&#xE145;</i>
+				Add subfield to {{ vm.fields[$index].label }}
+		</button>
+</div>

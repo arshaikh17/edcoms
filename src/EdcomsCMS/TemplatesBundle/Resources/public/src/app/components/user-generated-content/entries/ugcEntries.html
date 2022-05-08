@@ -1,0 +1,71 @@
+<div class="m-card" permissions="userGeneratedContent.entries;read">
+    <div class="m-card__content">
+        <h1>{{ vm.title }}</h1>
+        <p class="m-card__introduction">Here is the user generated content entries. Click through to see associated data.</p>
+        <div class="u-clearfix">
+            <div class="m-card m-card--flat m-card--grey l-L-1of2">
+                <div class="m-card__content" ng-if="vm.ugcTypes.length">
+                    <h2>Forms</h2>
+                    <ul class="m-tree">
+                        <li class="m-tree__leaf" ng-repeat="ugcT in vm.ugcTypes" ng-class="{ 'is-active': ugcT.id === vm.selectedUgcType }">
+                            <i class="m-tree__icon m-tree__icon--small material-icons">&#xE0BF;</i>
+                            <a ng-click="vm.getUgcEntries(ugcT.id)">{{ ugcT.name }}</a>
+                        </li>
+                    </ul>
+                </div>
+                <div class="m-card__content" ng-if="!vm.ugcTypes.length">
+                    <p class="m-card__introduction">There is no user generated content type yet.</p>
+                </div>
+            </div>
+
+        </div>
+        <div class="u-clearfix" ng-if="vm.selectedUgcType">
+            <div class="m-card m-card--flat m-card--grey" ng-class="{ 'l-L-1of2': !vm.editable }">
+                <div class="m-card__content">
+                    <h2>{{ vm.selectedForm }} entries</h2>
+                    <ul ng-if="vm.ugcEntries.length" class="m-tree">
+                        <li ng-repeat="ugc in vm.ugcEntries" class="m-tree__leaf u-clearfix" ng-class="{ 'is-active': ugc.id === vm.selectedEntryId }">
+                            <a class="m-tree__label u-float-left"
+                                ng-if="vm.editable"
+                                ng-href="#/user-generated-content/entry/update/{{ugc.id}}"
+                                permissions="userGeneratedContent.entries;edit">
+                                <i class="m-tree__icon m-tree__icon--small material-icons">&#xE2C9;</i>
+                                {{ ugc.title }}
+                            </a>
+                            <div ng-if="vm.editable" class="u-float-right">
+                                <label class="m-btn m-btn--rsd m-btn--small m-btn--unselected" ng-class="{'m-btn--published' : ugc.status === 'published' }">
+                                    <input name="status_{{ugc.id}}" class="is-hidden" type="radio" value="published" ng-model="ugc.status" ng-change="vm.setStatus(ugc.id, ugc.status, ugc.title, ugc.contentid)">
+                                    Published
+                                </label>
+
+                                <label class="m-btn m-btn--rsd m-btn--small m-btn--unselected" ng-class="{'m-btn--pending' : ugc.status === 'pending' }">
+                                    <input name="status_{{ugc.id}}" class="is-hidden" type="radio" value="pending" ng-model="ugc.status" ng-change="vm.setStatus(ugc.id, ugc.status, ugc.title, ugc.contentid)">
+                                    Pending
+                                </label>
+
+                                <label class="m-btn m-btn--rsd m-btn--small m-btn--unselected" ng-class="{'m-btn--rejected' : ugc.status === 'rejected' }">
+                                    <input name="status_{{ugc.id}}" class="is-hidden" type="radio" value="rejected" ng-model="ugc.status" ng-change="vm.setStatus(ugc.id, ugc.status, ugc.title, ugc.contentid)">
+                                    Rejected
+                                </label>
+                            </div>
+                            <a ng-if="!vm.editable" ng-click="vm.getUgcData(ugc.id)">{{ ugc.title }}</a>
+                        </li>
+                    </ul>
+                    <p ng-if="!vm.ugcEntries.length">There is no entries yet!</p>
+                </div>
+            </div>
+            <div ng-if="vm.ugcData.length && !vm.editable" class="m-card m-card--flat m-card--grey l-L-1of2 l-last">
+                <div class="m-card__content">
+                    <h2>{{ vm.selectedEntry }}
+                        data</h2>
+                    <ul class="m-tree">
+                        <li ng-repeat="data in vm.ugcData" class="m-tree__leaf">
+                            <b>{{ data.field }}</b>:
+                            {{ data.value }}
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

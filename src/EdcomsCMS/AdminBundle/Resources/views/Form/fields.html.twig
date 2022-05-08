@@ -1,0 +1,128 @@
+{# TODO DC: Below is a draft HTML markup. Needs to become nicer and follow FE guidelines  #}
+
+{% block edcoms_form_polycollection_row %}
+    {% set collectionForm = form %}
+
+    <div id="{{ id }}" class="collection box box-solid {{ form.vars.attr.class is defined ? form.vars.attr.class : '' }}">
+        {{ form_label(form)  }}
+        <div class="items">
+            {% for form in collectionForm %}
+                {{ block('entry_row') }}
+            {% endfor %}
+        </div>
+        <div id="" class="actions">
+            <div class="clearfix">
+                    <div class="pull-right">
+                        {% if allow_add==true %}
+                            {% if (prototypes|length)>1  %}
+                                <div class="dropdown">
+                                    <button class="btn btn-success add_item" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                        Add new
+                                        <span class="caret"></span>
+                                    </button>
+                                    <ul class="dropdown-menu" role="menu">
+                                        {% for  key, pr in prototypes %}
+                                            {% set form = prototypes[key] %}
+                                            <li><a href="#" data-prototype="{{ block('entry_row') | escape }}" class="add_item">{{ form.vars['button_label'] }}</a></li>
+                                        {% endfor %}
+                                    </ul>
+                                </div>
+                            {% else %}
+                                {% for  key, pr in prototypes %}
+                                    {% set form = prototypes[key] %}
+                                    <button class="btn btn-success add_item" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                        <span href="#" data-prototype="{{ block('entry_row') | escape }}" class="add_item">Add new</span>
+                                    </button>
+                                {% endfor %}
+
+                            {% endif %}
+                        {% endif %}
+                    </div>
+            </div>
+        </div>
+        <script>
+            $(function () {
+                $('#{{ id }}').each(function () {
+                    $(this).on("infinite_collection_add", function(e) {
+                        setTimeout(function(){
+                            initTinyMCE();
+                            EdcomsContent.bindFilePicker(e.target);
+                            Admin.shared_setup(e.target);
+                        },0)
+                    });
+                    new window.infinite.Collection($(this).find('> .items'), $(this).find('> .actions [data-prototype]'),
+                        {
+                            keepScripts: true,
+                            prototypeName: '{{ prototype_name }}'
+                        });
+                });
+            });
+        </script>
+    </div>
+{% endblock %}
+
+{% block entry_row %}
+
+    {# By default an item in the collection is collapsed. However prototypes are always expanded #}
+    {% set collapsed = collapsed==true and form.vars.value ? true : false %}
+
+    <div class="item box box-solid {{ collapsed ? 'collapsed-box' : '' }} {{ form.vars.attr.class is defined ? form.vars.attr.class : '' }}">
+        <div class="box-header with-border">
+            <h3 class="box-title">{{  form.vars['value'] ? form.vars['value'].__toString() : '' }}</h3>
+            <div class="box-tools pull-right">
+                <span>{{ form.vars['button_label'] is defined ? form.vars['button_label'] : '' }}</span>
+                <button type="button" class="btn btn-primary btn-sm" data-widget="collapse"><i class="fa fa-{{ collapsed ? 'plus' : 'minus' }}"></i></button>
+                {% if allow_delete==true %}
+                    <button type="button" class="btn btn-danger btn-sm remove_item" data-widget="remove"><i class="fa fa-times"></i></button>
+                {% endif %}
+            </div>
+        </div>
+        <div class="box-body">
+            {{ form_widget(form) }}
+        </div>
+        <div class="box-footer clearfix">
+        </div>
+    </div>
+{% endblock %}
+
+
+{% block edcoms_file_widget %}
+    {{ form_errors(form) }}
+    {{ form_widget(form) }}
+    <div
+            class="file-picker"
+            data-widget="edcoms-file-picker"
+            data-input-id="{{ form.vars['id'] }}"
+            data-default-placeholder = "{{ asset('bundles/edcomscmscontent/image/media/placeholder-none.jpg') }}"
+            data-default-file-placeholder = " {{ asset('bundles/edcomscmscontent/image/media/placeholder.jpg') }}"
+            data-dialog-url = "{{ form.vars['dialog_url'] }}"
+    >
+        <div class="img-wrap item">
+            <img class="img-placeholder" src="{{ form.vars['value']|filePickerPlaceholder }}" data-action="openFilePicker" data-item="placeholder">
+        </div>
+        <a class="btn btn-app item" data-action="openFilePicker">
+            <i class="fa fa-file"></i> Choose
+        </a><a class="btn btn-app item" data-action="remove">
+            <i class="fa fa-trash"></i> Remove
+        </a>
+        <div class="file-title" data-item="file-title">{{ form.vars['value']|basename }}</div>
+    </div>
+{% endblock %}
+
+{% block layout_group_widget %}
+    <div class="{{ width_class }}">
+        <div class="box box-primary">
+            <div class="box-header">
+                <h4 class="box-title">
+                    {{ group_label }}
+                </h4>
+                {% if description is not null %}
+                    <p class="text-muted">{{ description|raw }}</p>
+                {% endif %}
+            </div>
+            <div class="box-body">
+                {{ form_widget(form) }}
+            </div>
+        </div>
+    </div>
+{% endblock %}

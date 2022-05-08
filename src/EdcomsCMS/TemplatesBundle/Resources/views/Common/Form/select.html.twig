@@ -1,0 +1,10 @@
+<div class="{{ classes }} m-form__select">
+    <select ng-model="{{ model }}" ng-change="{{ action }}">
+        <option value="">Filter by</option>
+        <option value="date_recent">Date: most recent</option>
+        <option value="date_oldest">Date: oldest first</option>
+        <option value="person.firstName">Name: Alphabetical</option>
+        <option value="nameReverse">Name: Reverse alphabetical</option>
+    </select>
+    <i class="material-icons">&#xE313;</i>
+</div>

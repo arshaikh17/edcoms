@@ -1,0 +1,148 @@
+<div class="m-card">
+    <form name="vm.userCreate" class="m-form" novalidate>
+        <cms-actions actions="vm.action" id="vm.user.UserCreate.id" call="vm.callFunction(cmsFn)"></cms-actions>
+        <div class="m-card__content">
+            <h1 class="m-card__header">{{ vm.title }}</h1>
+            <div class="m-form__block">
+                <h3 class="m-form__block-title ">User information</h3>
+                <div class="m-form__block-field">
+                    <label for="UserCreatePersonFirstName" class="m-form__label">First name <span
+                            class="m-form__required">*</span></label>
+                    <input id="UserCreatePersonFirstName" class="m-form__field" type="text" name="PersonFirstName"
+                           ng-model="vm.user.UserCreate.person.firstName" ng-required="vm.required.person"/>
+                    <div ng-show="vm.userCreate.$submitted || vm.userCreate.PersonFirstName.$touched">
+                        <div ng-show="vm.userCreate.PersonFirstName.$error.required" class="m-form__message--error">
+                            Required.
+                        </div>
+                    </div>
+                </div>
+                <div class="m-form__block-field">
+                    <label for="UserCreatePersonLastName" class="m-form__label">Last name <span
+                            class="m-form__required">*</span></label>
+                    <input id="UserCreatePersonLastName" class="m-form__field" type="text" name="PersonLastName"
+                           ng-model="vm.user.UserCreate.person.lastName" ng-required="vm.required.person"/>
+                    <div ng-show="vm.userCreate.$submitted || vm.userCreate.PersonLastName.$touched">
+                        <div ng-show="vm.userCreate.PersonLastName.$error.required" class="m-form__message--error">
+                            Required.
+                        </div>
+                    </div>
+                </div>
+                <div class="m-form__block-field">
+                    <label for="UserCreatePersonEmail" class="m-form__label">{{
+                        vm.user.UserCreate.person.contacts[0].title }} <span class="m-form__required">*</span></label>
+                    <input id="UserCreatePersonEmail" class="m-form__field" type="text" name="PersonEmail"
+                           ng-model="vm.user.UserCreate.person.contacts[0].value" ng-required="vm.required.person"/>
+                    <div ng-show="vm.userCreate.$submitted || vm.userCreate.PersonEmail.$touched">
+                        <div ng-show="vm.userCreate.PersonEmail.$error.required" class="m-form__message--error">
+                            Required.
+                        </div>
+                    </div>
+                </div>
+                <!-- ng-model="user.UserCreate.person.contacts.title" example: Email (label) -->
+                <!-- ng-model="user.UserCreate.person.contacts.type" example: email -->
+                <!-- ng-model="user.UserCreate.person.contacts.value" example: value -->
+                <div class="m-form__block-field">
+                    <div ng-repeat="c in vm.contacts track by $index">
+
+                        <!-- Skip the first required item: email -->
+                        <fieldset class="m-form__group" ng-show="$index > 0">
+                            <h4 class="m-form__title">
+                                Contact {{ $index }}
+                                <a ng-click="vm.deleteContact($index)"><i class="material-icons material-icons--small">
+                                    &#xE872;</i></a>
+                            </h4>
+                            <div class="m-form__block-field m-form__block-field--small">
+                                <label for="userCreateContactsTitle" class="m-form__label">Title</label>
+                                <input id="userCreateContactsTitle" class="m-form__field" type="text"
+                                       name="ContactsTitle"
+                                       ng-model="vm.user.UserCreate.person.contacts[$index].title"/>
+                            </div>
+                            <div class="m-form__block-field m-form__block-field--small">
+                                <label for="userCreateContactsType" class="m-form__label">Type</label>
+                                <input id="userCreateContactsTYpe" class="m-form__field" type="text" name="ContactType"
+                                       ng-model="vm.user.UserCreate.person.contacts[$index].type"/>
+                            </div>
+                            <div class="m-form__block-field m-form__block-field--small">
+                                <label for="userCreateContactsValue" class="m-form__label">Value</label>
+                                <input id="userCreateContactsValue" class="m-form__field" type="text"
+                                       name="ContactsValue"
+                                       ng-model="vm.user.UserCreate.person.contacts[$index].value"/>
+                            </div>
+                        </fieldset>
+                    </div>
+                    <button class="m-btn m-btn--rsd m-btn--grey" type="button" ng-click="vm.addContact()"><i
+                            class="m-btn__icon material-icons">&#xE145;</i> Add a new contact field
+                    </button>
+                </div>
+            </div>
+            <div class="m-form__block">
+                <h3 class="m-form__block-title">User details</h3>
+                <div class="m-form__block-field">
+                    <label for="UserCreateUsername" class="m-form__label">
+                        Username
+                        <span class="m-form__required">*</span>
+                    </label>
+                    <input autocomplete="off" id="UserCreateUsername" class="m-form__field" type="text" name="Username"
+                           ng-model="vm.user.UserCreate.username" ng-required="vm.required.username"/>
+                    <div ng-show="vm.userCreate.$submitted || vm.userCreate.Username.$touched">
+                        <div ng-show="vm.userCreate.Username.$error.required" class="m-form__message--error">Required.
+                        </div>
+                    </div>
+                </div>
+                <div class="m-form__block-field">
+                    <label for="UserCreatePassword" class="m-form__label">
+                        Password
+                        <span ng-show="action=='create'" class="m-form__required">*</span>
+                    </label>
+                    <input autocomplete="off" id="UserCreatePassword" class="m-form__field" type="password"
+                           name="Password" ng-model="vm.user.UserCreate.password" ng-required="action=='create'"/>
+                    <div ng-show="vm.userCreate.$submitted || vm.userCreate.Password.$touched">
+                        <div ng-show="vm.userCreate.Password.$error.required && action=='create'"
+                             class="m-form__message--error">Required.
+                        </div>
+                    </div>
+                </div>
+                <fieldset class="m-form__block-field">
+                    <legend class="m-form__label">Is active</legend>
+
+                    <div class="l-L-2of3 l-last">
+                        <div class="m-switch">
+                            <input id="UserCreateIsActive" class="m-switch__checkbox" type="checkbox" name="Is_active"
+                                   ng-model="vm.user.UserCreate.is_active" ng-required="vm.required.is_active"
+                                   />
+                            <label class="m-switch__label" for="UserCreateIsActive"></label>
+                        </div>
+                    </div>
+                    <div ng-show="vm.userCreate.$submitted || vm.userCreate.Is_active.$touched">
+                        <div ng-show="vm.userCreate.Is_active.$error.required" class="m-form__message--error">Let us
+                            know if this is a active user.
+                        </div>
+                    </div>
+                </fieldset>
+            </div>
+            <div class="m-form__block">
+                <h3 class="m-form__block-title">Groups <span class="m-form__required">*</span></h3>
+                <div ng-repeat="group in vm.groups track by $index" class="m-form__block-field--checkbox">
+                    <label class="m-form__label--checkbox">
+                        <input class="m-form__field--checkbox"
+                               name="Groups"
+                               ng-checked="vm.user.UserCreate.groups.indexOf(group.id) > -1"
+                               ng-true-value="{{group.id}}"
+                               type="checkbox"
+                               ng-model="group.checked"
+                               ng-click="vm.updateGroup(group.id)"
+                               ng-required="!vm.checkboxGroupSelected(vm.user.UserCreate.groups)"/>
+                        {{ group.name }}
+                    </label>
+
+                </div>
+                <div ng-show="vm.userCreate.$submitted || vm.userCreate.Groups.$touched">
+                    <div ng-show="vm.userCreate.Groups.$error.required" class="m-form__message--error">Please select a
+                        group.
+                    </div>
+                </div>
+            </div>
+        </div>
+        <cms-actions actions="vm.action" id="vm.user.UserCreate.id" call="vm.callFunction(cmsFn)"></cms-actions>
+    </form>
+</div>

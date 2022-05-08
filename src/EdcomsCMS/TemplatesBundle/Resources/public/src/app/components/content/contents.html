@@ -1,0 +1,84 @@
+<div class="m-card" ng-if="vm.content_item">
+    <div class="m-card__content" ng-if="vm.content_item">
+        <header class="m-card__header clearfix">
+            <h1 class="m-card__title">
+                <i ng-if="vm.structure.master" class="m-card__icon material-icons">&#xE157;</i>
+                <i ng-if="!vm.structure.master" class="m-card__icon material-icons">&#xE873;</i>
+                <a permissions="content;edit" class="m-card__title-link" ng-href="#content/update/{{vm.content_item.id}}/{{vm.structure.id}}">
+                    {{ vm.content_item.title }}
+                </a>
+            </h1>
+            <div class="u-float-right">
+                <a permissions="content;edit" class="m-btn m-btn--flat" ng-if="vm.structure.master" ng-href="#content/update/{{vm.structure.master.last_content.id}}/{{vm.structure.master.id}}">
+                    Edit original content
+                </a>
+                <a permissions="content;edit" class="m-btn" ng-href="#content/update/{{vm.content_item.id}}/{{vm.structure.id}}">
+                  <i class="material-icons">&#xE3C9;</i>
+                </a>
+                <a ng-if="vm.hasParent"
+                    class="m-btn"
+                    ng-href="#content/delete/{{vm.structure.id}}"
+                    permissions="content;delete">
+                    <i class="material-icons">&#xE872;</i>
+               </a>
+            </div>
+        </header>
+
+        <p class="u-subheader">[{{ vm.content_item.contentType.name }}]</p>
+        <p ng-if="vm.structure.master" class="m-card__introduction m-card__introduction--small">
+            This is a reference to another content. Editing this content will allow you to edit the link.<br />
+            To edit the fields themself, please click on the button below.
+        </p>
+        <div ng-if="vm.children.length">
+            <p class="m-card__introduction m-card__introduction--small">Hey, this is where you can manage content</p>
+            <div class="l-L-1of2" ng-repeat="child in vm.children">
+                <div class="m-card m-card--flat m-card--grey">
+                    <div class="m-card__content">
+                        <header class="m-card__header clearfix">
+                            <h2 class="m-card__title">
+                                <i ng-if="child.master" class="m-card__icon m-card__icon--small material-icons">&#xE157;</i>
+                                <i ng-if="!child.master" class="m-card__icon m-card__icon--small material-icons">&#xE873;</i>
+                                <a permissions="content;edit" class="m-card__title-link" ng-href="#content/update/{{child.content.id}}/{{child.id}}">{{ child.title }}</a>
+                            </h2>
+                            <div class="u-float-right">
+                                <a permissions="content;edit" class="m-btn m-btn--flat" ng-if="child.master" ng-href="#content/update/{{vm.structure.master.last_content.id}}/{{vm.structure.master.id}}">
+                                    Edit original content
+                                </a>
+                            </div>
+                        </header>
+                        <p class="m-card__subheader m-card__subheader--small" ng-if="child.content.contentType.name">
+                            [{{ child.content.contentType.name }}]
+                        </p>
+                        <p class="m-card__meta" ng-if="child.addedOn">
+                            Created on <b>{{ child.addedOn }}</b>
+                        </p>
+                        <p class="m-card__meta" ng-if="child.content.addedOn">
+                            Modified on <b>{{ child.content.addedOn }}</b>
+                        </p>
+                        <p class="m-card__meta" ng-if="child.content.addedUser">By <b>{{
+                            child.content.addedUser.person.firstName }} {{ child.addedUser.person.lastName }}</b></p>
+                    </div>
+                    <div class="m-card__button">
+                        <p class="m-card__button-label ng-binding">
+                            <span permissions="content;edit">Update</span>
+                            <span permissions="content;delete"> delete</span>
+                        </p>
+                        <div class="m-card__button-action">
+                            <!-- Edit is using content id-->
+                            <a class="m-btn m-btn--sq  m-btn--primary" permissions="content;edit" ng-href="#content/update/{{child.content.id}}/{{child.id}}">
+                                <i class="material-icons">&#xE254;</i>
+                                <label class="m-btn__label ng-binding">edit</label>
+                            </a>
+                            <!-- Delete is using structure id -->
+                            <a class="m-btn m-btn--sq  m-btn--red" permissions="content;delete" ng-href="#content/delete/{{child.id}}">
+                                <i class="material-icons">&#xE872;</i>
+                                <label class="m-btn__label ng-binding">delete</label>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<cms-spinner ng-if="vm.loading"></cms-spinner>

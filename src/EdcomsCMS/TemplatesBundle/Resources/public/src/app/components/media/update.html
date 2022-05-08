@@ -1,0 +1,58 @@
+<div class="m-card">
+    <form name="vm.mediaForm" class="m-form m-form--no-highlight" novalidate>
+        <cms-actions actions="vm.action" id="vm.media.title" call="vm.callFunction(cmsFn)"></cms-actions>
+        <div class="m-card__content u-clearfix">
+            <h2>{{ vm.title }}</h2>
+            <div class="m-metadata" ng-class="{ 'm-metadata--grey': vm.media.path }">
+                <!-- Show parent and possibility to edit -->
+                <div class="m-metadata__content" ng-show="vm.media.path">
+                    <dl class="m-metadata__list">
+                        <dt class="m-metadata__item m-metadata__label">This is your media location:</dt>
+                        <dd class="m-metadata__item m-metadata__data">{{ vm.selectedPath }}</dd>
+                    </dl>
+                    <button class="m-metadata__action m-btn m-btn--sq m-btn--primary" type="button"
+                            ng-click="vm.toggleActionTree()">
+                        <i class="material-icons">&#xE89F;</i>
+                        <label class="m-btn__label">Move</label>
+                    </button>
+                </div>
+                <div class="m-metadata__event" ng-show="vm.actionTree">
+                    <label for="content_location" class="m-metadata__even-label"
+                           ng-show="!vm.media.path">Where do you want your directory to be
+                        located? <span class="m-form__required">*</span></label>
+                    <div id="content_location" class="m-tree"
+                         ng-class="{ ' m-tree--margin': !vm.media.path }"
+                         ng-if="vm.tree">
+                        <cms-tree tree="vm.tree" selected="vm.media"
+                              show-children="vm.showChildren(tree)" action="vm.setMedia(item)"></cms-tree>
+                    </div>
+                </div>
+            </div>
+            <div ng-show="vm.mediaForm.$submitted">
+                <p ng-show="!vm.media.path" class="m-form__message--error">
+                    Please select your content location.
+                </p>
+            </div>
+            <div class="m-form__block">
+                <div class="m-form__block-field">
+                    <label for="MediaName">
+                        Name:
+                        <span class="m-form__required">*</span>
+                    </label>
+                    <input id="MediaName"
+                           class="m-form__field" name="Name"
+                           ng-required="true"
+                           ng-model="vm.media.name"/>
+                    <div ng-show="vm.mediaForm.$submitted">
+                        <p ng-show="vm.media.$error.required" class="m-form__message--error">
+                            Please select a content type.
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+
+        <cms-actions actions="vm.action" id="vm.media.title" call="vm.callFunction(cmsFn)"></cms-actions>
+    </form>
+</div>

@@ -1,0 +1,37 @@
+{% extends 'SonataAdminBundle:CRUD:base_edit.html.twig' %}
+
+{% use '@EdcomsCMSContent/Admin/Content/base_edit_form.html.twig' with form as parentForm %}
+
+{% block sonata_page_content %}
+    {{ parent() }}
+    {% set content = {
+        id: object.id,
+        title: object.title,
+        contentType: {
+            id: object.contentType.id,
+            name: object.contentType.name
+        }
+    } %}
+
+    <div id="dataContent" style="display: none" data-content="{{ content|json_encode|raw|escape }}"></div>
+{%- endblock -%}
+
+{%- block actions -%}
+    {% if admin.hasAccess('create') %}
+        {% include '@EdcomsCMSContent/Admin/Content/actions.html.twig' %}
+    {% endif %}
+{%- endblock -%}
+
+{% block sonata_form_action_url %}
+   {% spaceless %}
+       {{ admin.generateUrl(url, {'id': admin.id(object), 'uniqid': admin.uniqid, 'subclass': app.request.get('subclass'), content_type: admin.request.get('content_type') }) }}
+   {% endspaceless %}
+{% endblock %}
+
+{% block sonata_form_actions %}
+    {{ parent() }}
+
+    {% if object.structure.link is defined %}
+        <a class="btn btn-info" href="{{ url('cms', { path: object.structure.parent ? object.structure.getFullLink(true) : object.structure.link }) }}" target="_blank" ><i class="fa fa-eye" aria-hidden="true"></i> View Page</a>
+    {% endif  %}
+{% endblock sonata_form_actions %}

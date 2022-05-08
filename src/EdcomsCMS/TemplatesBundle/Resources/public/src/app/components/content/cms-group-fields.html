@@ -1,0 +1,204 @@
+<div
+  class="m-form__block-field"
+  ng-repeat="(key, field) in vm.fields track by $index"
+  ng-show="field.fieldType !== 'hidden'">
+  <div ng-switch on="field.fieldType" 
+       ng-repeat="content in vm.contentForm[field.name] track by $index" 
+       class="u-clearfix"
+       ng-class="{ 'm-form__group': field.fieldType === 'group', 'u-form-push-right' : $index > 0 && field.fieldType !== 'group' && field.fieldType !== 'richtextarea' }">
+    <label class="m-form__label" 
+            ng-if="field.fieldType === 'group' && field.repeatable || $index === 0"
+            ng-class="{ 'm-form__label--bold': field.fieldType === 'group' }">
+      {{ field.label }} <span ng-if="field.fieldType === 'group' && field.repeatable">{{ $index + 1 }}</span>
+      <span class="m-form__required" ng-show="field.required">*</span>
+      <small class="m-form__description">{{ field.description }}</small>
+    </label>
+    <!-- Text field -->
+      <input
+        ng-switch-when="text"
+        class="m-form__field"
+        type="text"
+        name="{{ field.name }}_{{ $index }}"
+        ng-model="vm.contentForm[field.name][$index]"
+        maxlength="{{ field.options[0] }}"
+        paste-max-length name="{{ field.name }}"
+        ng-required="field.required"
+        />
+
+      <!-- Number field -->
+      <input
+        ng-switch-when="number"
+        class="m-form__field"
+        type="text"
+        name="{{ field.name }}_{{ $index }}"
+        ng-model="vm.contentForm[field.name][$index]"
+        ng-required="field.required"
+        />
+
+      <!-- Date field -->
+      <input
+        ng-switch-when="date"
+        class="m-form__field"
+        type="text"
+        name="{{ field.name }}_{{ $index }}"
+        ng-model="vm.contentForm[field.name][$index]"
+        ng-required="field.required"
+        />
+
+      <!-- File|image field -->
+      <div ng-switch-when="file|image"
+            ng-switch-when-separator="|"
+            class="m-form__field m-form__field--group">
+        <div class="m-form__inline">
+          <input
+            class="m-form__input m-form__input--full"
+            id="{{ 'file' + key + '-' + $index }}"
+            type="text"
+            ng-model="vm.contentForm[field.name][$index]"
+            name="{{ field.name }}_{{ $index }}"
+            ng-required="field.required"
+            />
+        </div>
+        <button ng-click="vm.openFileManager(key, $index)" class="m-btn m-btn--sq m-btn--primary u-float-right" type="button">
+          <i class="material-icons">&#xE8B6;</i>
+          <label class="m-btn__label ng-binding">choose file</label>
+        </button>
+      </div>
+
+      <!-- Checkbox field -->
+      <input
+        ng-switch-when="checkbox"
+        class="m-form__field--checkbox"
+        type="checkbox"
+        ng-true-value="'1'"
+        ng-false-value="'0'"
+        name="{{ field.name }}_{{ $index }}"
+        ng-model="vm.contentForm[field.name][$index]"
+        ng-required="field.required"
+        />
+
+      <!-- Long text field -->
+      <textarea
+        ng-switch-when="textarea"
+        class="m-form__field"
+        name="{{ field.name }}_{{ $index }}"
+        ng-model="vm.contentForm[field.name][$index]"
+        paste-max-length maxlength="{{ field.options[0] }}"
+        ng-required="field.required">
+      </textarea>
+
+      <!-- List of associated content -->
+      <div ng-switch-when="content_array" class="m-form__field m-tree">
+        <cms-tree ng-show="vm.relations[key]" 
+                  tree="vm.relations[key]" 
+                  selected="vm.contentForm[field.name][$index]" 
+                  show-children="vm.showChildren(tree)" 
+                  action="vm.toggleOptions(key, $index, item)"
+                  field="key">
+        </cms-tree>
+      </div>
+
+      <!-- List of checkbox -->
+      <fieldset ng-switch-when="checkbox_array" class="m-form__group" ng-class="{ 'm-form--group--inline' : $index > 0 }">
+        <div class="m__form__block-field" ng-repeat="cb in (field.options) track by $index">
+          <label>
+            <input
+              type="checkbox"
+              ng-model="checkboxes.checked"
+              value="{{ cb  }}"
+              ng-true-value="'{{ cb }}'"
+              name="{{ field.name }}_{{ $parent.$index }}_{{ $index }}"
+              ng-checked="(vm.contentForm[field.name][$parent.$index]).indexOf(cb) > -1"
+              ng-click="vm.toggleOptions(key, $parent.$index, cb)"
+              ng-required="field.required && !vm.contentForm[field.name][$parent.$index].length"/>
+            {{ cb }}
+          </label>
+        </div>
+        <div class="m-form__error" ng-show="field.required && vm.form.$submitted">
+          <p ng-show="vm.form[field.name + '_' + $parent.$index + '_' + $index].$error.required" class="m-form__message--error">Required</p>
+        </div>
+      </fieldset>
+
+      <!-- List of radio button -->
+      <fieldset ng-switch-when="radio_array" class="m-form__group" ng-class="{ 'm-form--group--inline' : $index > 0 }">
+        <label ng-repeat="cb in (field.options) track by $index">
+          <input
+            type="radio"
+            ng-value="cb"
+            name="{{ field.name }}_{{ $parent.$index }}_{{ $index }}"
+            ng-model="vm.contentForm[field.name][$parent.$index]"
+            ng-required="field.required && !vm.contentForm[field.name][$parent.$index]"/>
+          {{ cb }}
+        </label>
+        <div class="m-form__error" ng-show="field.required && vm.form.$submitted">
+          <p ng-show="vm.form[field.name + '_' + $parent.$index + '_' + $index].$error.required" class="m-form__message--error">Required</p>
+        </div>
+      </fieldset>
+
+      <!-- Rich text editor -->
+      <div class="m-form__field--richtextarea" ng-switch-when="richtextarea">
+        <textarea
+          data-ui-tinymce
+          ng-model="vm.contentForm[field.name][$index]"
+          name="{{ field.name }}_{{ $index }}"
+          ng-required="field.required"
+          max-html-length="{{ field.options[0] }}">
+        </textarea>
+      </div>
+     
+    <!-- List of files -->
+    <div ng-switch-when="file_array">
+      <p ng-show="!vm.contentForm[field.name][$index].length">
+        <b>No files have been uploaded.</b>
+      </p>
+      <div class="file" ng-repeat="file in vm.contentForm[field.name][key] track by $index">
+        <a href="{{ file.path }}" download>{{ file.title }}</a>
+      </div>
+    </div>
+
+    <!-- Group field -->
+    <cms-group-fields
+        class="u-margin-20"
+        ng-switch-when="group"
+        fields="field.subfields"
+        content-form="vm.contentForm[field.name][$index]"
+        form="vm.form">
+    </cms-group-fields>
+
+    <button ng-if="field.repeatable && field.fieldType !== 'group'" ng-click="vm.deleteField(field, $index)">
+      <i class="material-icons material-icons--small">&#xE872;</i>
+    </button>
+    <button ng-if="field.repeatable && field.fieldType === 'group'" 
+            ng-click="vm.deleteField(field, $index)"
+            class="m-btn m-btn--rsd m-btn--red u-float-right">
+      Delete {{ field.label }} {{ $index + 1}}
+    </button>
+
+    <!-- Errors to display -->
+    <div class="m-form__error" ng-show="vm.errorFields[key][$index]">
+      <p class="m-form__message--error">{{ vm.errorFields[key][$index].message }}</p>
+    </div>
+    <p ng-if="['text', 'textarea'].indexOf(field.fieldType) > -1 && field.options">
+      {{ field.options[0] - vm.contentForm[field.name][$index].length }} characters left.
+    </p>
+    <p ng-if="field.fieldType === 'richtextarea' && field.options">
+      {{ field.options[0] }}
+      characters allowed.
+    </p>
+    <div class="m-form__error" ng-show="field.required && vm.form.$submitted">
+      <p ng-show="vm.form[field.name + '_' + $index].$error.required" class="m-form__message--error">Required</p>
+    </div>
+    <div class="m-form__error" ng-show="field.fieldType === 'richtextarea' && !vm.form.$valid">
+      <p ng-show="vm.form[field.name].$error.maxlength" class="m-form__message--error">Please use less characters than the limitation below.</p>
+    </div>
+  </div>
+
+  <button ng-if="field.repeatable" 
+          class="m-btn m-btn--rsd m-btn--grey"
+          ng-class="{ 'u-form-push-right': field.fieldType !== 'group' && field.fieldType !== 'richtextarea' }"
+          type="button" 
+          ng-click="vm.addField(field)">
+    <i class="m-btn__icon material-icons">&#xE145;</i>
+    Add {{ field.label }}
+  </button>
+</div>

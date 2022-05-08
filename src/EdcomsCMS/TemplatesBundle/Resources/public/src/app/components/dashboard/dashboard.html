@@ -1,0 +1,40 @@
+<div class="l-group">
+    <div class="m-card">
+        <div class="m-card__content">
+            <header>
+                <h1 class="m-card__header">Dashboard</h1>
+            </header>
+            <p class="m-card__introduction">Hey! Let's get you started. Access website content from here.</p>
+            <div class="l-group" cms-equal-height>
+                <div class="m-card m-card--flat m-card--grey l-M-1of2 l-L-1of3" permissions="content;read">
+                    <div class="m-card__content js-eqH">
+                        <header>
+                            <h2 class="m-card__header">Content</h2>
+                        </header>
+                        <p>See your content.</p>
+                    </div>
+                    <cms-actions actions="vm.action"></cms-actions>
+                </div>
+                <div class="m-card m-card--flat m-card--grey l-M-1of2 l-L-1of3" ng-repeat="r in vm.reports">
+                    <div class="m-card__content js-eqH">
+                        <header>
+                            <h2 class="m-card__header">{{ r.name }}</h2>
+                        </header>
+                        <p>Get your {{ r.name }} report.</p>
+                    </div>
+
+                    <div class="m-card__button">
+                        <p class="m-card__button-label">Download</p>
+                        <div class="m-card__button-action">
+                            <a class="m-btn m-btn--sq  m-btn--primary" ng-href="{{ r.url }}">
+                                <i class="material-icons">&#xE2C4;</i>
+                                <label class="m-btn__label">Download</label>
+                            </a>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

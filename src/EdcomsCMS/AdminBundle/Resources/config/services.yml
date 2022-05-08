@@ -1,0 +1,21 @@
+services:
+    edcoms.admin.twig_extension:
+        class: EdcomsCMS\AdminBundle\Twig\EdcomsAdminExtension
+        arguments:  ['@service_container' ]
+        public: false
+        tags:
+            - { name: twig.extension }
+    edcoms.admin.twig_extension.stfalcon_tinymce:
+        class: EdcomsCMS\AdminBundle\Twig\StfalconTinymceExtension
+        arguments:  ['@service_container' ]
+        public: false
+        tags:
+            - { name: twig.extension }
+    edcoms.admin.orm.filter.type.insensitive_string:
+          class: EdcomsCMS\AdminBundle\Filter\CaseInsensitiveStringFilter
+          tags:
+              - { name: sonata.admin.filter.type, alias: edcoms_doctrine_orm_istring }
+    edcoms.admin.extension.spellchecker:
+          class: EdcomsCMS\AdminBundle\Form\Extension\SpellCheckerExtension
+          tags:
+              - { name: form.type_extension, extended_type: Symfony\Component\Form\Extension\Core\Type\TextType }

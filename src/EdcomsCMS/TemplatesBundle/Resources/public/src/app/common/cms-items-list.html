@@ -1,0 +1,61 @@
+<div ng-show="vm.items.length">
+  <div class="m-metadata m-metadata--outside">
+    <div class="m-btn m-btn--sq m-btn--dark-grey u-float-left">
+      <i class="material-icons">&#xE8B6;</i>
+    </div>
+    <label class="u-screenreader" for="searchBy">Search</label>
+    <input id="searchBy" class="m-metadata__item" ng-model="vm.search" ng-change="vm.getFilteredItems()" type="text" placeholder="Search"/>
+  </div>
+  <div class="m-metadata m-metadata--outside m-metadata--grey">
+    <div class="m-btn m-btn--sq m-btn--dark-grey u-float-left">
+      <i class="material-icons">&#xE152;</i>
+    </div>
+    <div class="m-metadata__item m-form__select">
+      <label class="u-screenreader" for="filterBy">Filter by</label>
+      <select id="filterBy" ng-model="vm.predicate" ng-change="vm.order()">
+        <option value="">Filter by</option>
+        <option value="alphabetical">Name: Alphabetical</option>
+        <option value="alphabeticalReverse">Name: Reverse alphabetical</option>
+      </select>
+      <i class="m-form__select-icon material-icons">&#xE313;</i>
+    </div>
+    <ul class="m-metadata__item m-alphabet u-no-list u-align-right">
+      <li class="m-alphabet__item">
+        <a class="m-alphabet__link" ng-class="{ 'is-active': '' === vm.filterLetter }" ng-click="vm.setFilter('')">All</a>
+      </li>
+      <li ng-repeat="l in vm.alphabet" class="m-alphabet__item">
+        <a ng-click="vm.setFilter(l)" class="m-alphabet__link" ng-class="{ 'is-active': l === vm.filterLetter }">{{ l }}</a>
+      </li>
+    </ul>
+  </div>
+  <div class="u-clearfix" ng-repeat="l in vm.alphabetSorted" ng-if="vm.letterList.indexOf(l) > -1 && vm.filteredItems.length">
+    <h2 class="u-header-grey">{{ l }}</h2>
+    <div class="m-metadata m-metadata--grey" ng-repeat="item in vm.filteredItems | firstNameStartsWith:l">
+      <header class="m-metadata__item u-float-left">
+        <h3 class="m-metadata__title" ng-bind-html="item.displayedName"></h3>
+      </header>
+      <div class="m-metadata__action">
+        <a ng-repeat="(label, a) in vm.actions" class="m-btn m-btn--sq  m-btn--{{a.color}}" permissions="{{ a.access }}" ng-if="a.link" ng-href="{{ a.link }}{{item.id}}">
+          <i ng-show="label==='restore'" class="material-icons">&#xE8BA;</i>
+          <i ng-show="label==='cancel'" class="material-icons">&#xE5C4;</i>
+          <i ng-show="label==='submit'" class="material-icons">&#xE5CA;</i>
+          <i ng-show="label==='edit'" class="material-icons">&#xE254;</i>
+          <i ng-show="label==='view'" class="material-icons">&#xE417;</i>
+          <i ng-show="label==='delete'" class="material-icons">&#xE872;</i>
+          <i ng-show="label==='download'" class="material-icons">&#xE2C4;</i>
+          <label class="m-btn__label ng-binding">{{ label }}</label>
+        </a>
+        <button ng-repeat="(label, a) in vm.actions" permissions="{{ a.access }}" ng-if="a.button" type="{{a.type}}" class="m-btn m-btn--sq  m-btn--{{a.color}}" ng-click="vm.call({cmsFn: a.button, item: item})">
+          <i ng-show="label==='restore'" class="material-icons">&#xE8BA;</i>
+          <i ng-show="label==='cancel'" class="material-icons">&#xE5C4;</i>
+          <i ng-show="label==='submit'" class="material-icons">&#xE5CA;</i>
+          <i ng-show="label==='edit'" class="material-icons">&#xE254;</i>
+          <i ng-show="label==='view'" class="material-icons">&#xE417;</i>
+          <i ng-show="label==='delete'" class="material-icons">&#xE872;</i>
+          <i ng-show="label==='download'" class="material-icons">&#xE2C4;</i>
+          <label class="m-btn__label">{{ label }}</label>
+        </button>
+      </div>
+    </div>
+  </div>
+</div>

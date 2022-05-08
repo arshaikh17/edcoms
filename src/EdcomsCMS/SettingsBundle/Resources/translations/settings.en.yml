@@ -1,0 +1,5 @@
+labels:
+    maintenance: Maintenance
+    maintenance_choices:
+        on: on
+        off: off

@@ -1,0 +1,64 @@
+.m-metadata {
+    margin: 0 0 10px;
+    @include clearfix;
+    @include font-size(14px);
+}
+
+.m-metadata--outside {
+    margin-left: -45px;
+}
+
+.m-metadata--grey {
+    background: #ececec;
+}
+
+.m-metadata--small {
+    width: 224px;
+}
+
+    .m-metadata__content {
+
+    }
+
+        .m-metadata__list {
+            margin: 0;
+            float: left;
+            @include clearfix;
+        }
+
+            .m-metadata__item {
+                margin: 0 0 0 0;
+                float: left;
+                line-height: 1;
+                padding: 13px 13px 14px 13px;
+                &:last-child {
+                    margin: 0;
+                }
+            }
+
+            .m-metadata__title {
+                margin: 0;
+            }
+
+            .m-metadata__label {
+                font-weight: bold;
+                margin-right: 10px;
+            }
+
+            .m-metadata__data {
+                overflow: hidden;
+            }
+
+        .m-metadata__action {
+            float: right;
+            font-size: 0;
+        }
+
+    .m-metadata__event {
+        clear: both;
+        padding: 10px;
+    }
+
+        .m-metadata__event-label {
+            margin: 0;
+        }

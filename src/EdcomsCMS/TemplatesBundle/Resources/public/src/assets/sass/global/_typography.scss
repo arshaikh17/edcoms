@@ -1,0 +1,25 @@
+//// Font face rules
+//
+//
+//@font-face {
+//    font-family:"GiorgioSans Light";
+//    src:url("../fonts/GiorgioSans-Light.eot?#iefix");
+//    src:url("../fonts/GiorgioSans-Light.eot?#iefix") format("eot"),url("../fonts/GiorgioSans-Light.woff") format("woff"),url("../fonts/GiorgioSans-Light.ttf") format("truetype"),url("../fonts/GiorgioSans-Light.svg#ed104d8c-7f39-4e8b-90a9-4076be06b857") format("svg");
+//}
+//
+
+
+@font-face {
+    font-family: "Material Icons";
+    font-style: normal;
+    font-weight: 400;
+    src: url("../../fonts/MaterialIcons-Regular.eot"); /* For IE6-8 */
+    src: local("Material Icons"),
+    local("MaterialIcons-Regular"),
+    url("../../fonts/MaterialIcons-Regular.woff2") format("woff2"),
+    url("../../fonts/MaterialIcons-Regular.woff") format("woff"),
+    url("../../fonts/MaterialIcons-Regular.ttf") format("truetype");
+}
+
+
+$text-font: "Roboto", Arial, sans-serif;

@@ -1,0 +1,87 @@
+{% extends '@SonataAdmin/standard_layout.html.twig' %}
+
+{% block side_bar_after_nav %}
+
+{% endblock %}
+
+
+{% block stylesheets %}
+    {{ parent() }}
+    <link rel="stylesheet" href="{{ asset('/bundles/sonatacore/vendor/eonasdan-bootstrap-datetimepicker/build/css/bootstrap-datetimepicker.min.css') }}" />
+    {% for stylesheetAsset in stylesheetAssets() %}
+        <link rel="stylesheet" href="{{ asset(stylesheetAsset) }}"/>
+    {% endfor %}
+{% endblock %}
+
+{% block javascripts %}
+    {{ parent() }}
+
+    {% javascripts 'bundles/sonatacore/vendor/moment/min/moment-with-locales.min.js'
+                   'bundles/sonatacore/vendor/eonasdan-bootstrap-datetimepicker/build/js/bootstrap-datetimepicker.min.js'
+                   'bundles/infiniteform/js/collections.js'
+                   'bundles/edcomscmsadmin/js/main.js'
+    %}
+        <script src="{{ asset_url }}"></script>
+    {% endjavascripts %}
+
+    {% for javascript in javascriptAssets() %}
+        <script src="{{ javascript }}"></script>
+    {% endfor %}
+
+    {#<script>#}
+        {#function myFileBrowser(field_name, url, type, win){#}
+            {#console.log(field_name);#}
+            {#console.log(url);#}
+            {#console.log(type);#}
+            {#console.log(win);#}
+
+            {#var cmsURL = window.location.pathname;     // your URL could look like "/scripts/my_file_browser.php"#}
+            {#var searchString = window.location.search; // possible parameters#}
+            {#if (searchString.length < 1) {#}
+                {#// add "?" to the URL to include parameters (in other words: create a search string because there wasn't one before)#}
+                {#searchString = "?";#}
+            {#}#}
+
+            {#// newer writing style of the TinyMCE developers for tinyMCE.openWindow#}
+
+            {#tinyMCE.activeEditor.windowManager.open({#}
+                {#file : cmsURL + searchString + "&type=" + type, // PHP session ID is now included if there is one at all#}
+                {#title : "File Browser",#}
+                {#width : 420,  // Your dimensions may differ - toy around with them!#}
+                {#height : 400,#}
+                {#close_previous : "no"#}
+            {#}, {#}
+                {#window : win,#}
+                {#input : field_name,#}
+                {#resizable : "yes",#}
+                {#inline : "yes"#}
+            {#});#}
+            {#return false;#}
+        {#}#}
+    {#</script>#}
+    {{ edcoms_tinymce_init() }}
+{% endblock %}
+
+{% block sonata_page_content %}
+
+    {{ parent() }}
+    <!-- Modal -->
+    <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+        <div class="modal-dialog modal-lg" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                    <h4 class="modal-title" id="myModalLabel">Modal title</h4>
+                </div>
+                <div class="modal-body">
+
+                </div>
+                <div class="modal-footer hidden">
+                    <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                    <button type="button" class="btn btn-primary">Save changes</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+{% endblock %}

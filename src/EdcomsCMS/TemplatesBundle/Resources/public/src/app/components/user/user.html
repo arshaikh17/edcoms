@@ -1,0 +1,39 @@
+<div class="m-card">
+    <div class="m-card__content">
+        <h1>{{ vm.user.person.firstName }} {{ vm.user.person.lastName  }}</h1>
+        <div>
+            <h3>User information</h3>
+            <dl class="m-data">
+                <dt class="m-data__label">{{ vm.user.person.contacts[0].title }}: </dt>
+                <dd class="m-data__value">{{  vm.user.person.contacts[0].value }}</dd>
+            </dl>
+            <div>
+                <div ng-repeat="c in vm.user.person.contacts track by $index">
+                    <!-- Skip the first required item: email -->
+                    <dl class="m-data" ng-show="$index > 0">
+                        <dt class="m-data__label">{{ vm.user.person.contacts[$index].title  }}:</dt>
+                        <dd class="m-data__value">{{ vm.user.person.contacts[$index].value  }}</dd>
+                    </dl>
+                </div>
+            </div>
+        </div>
+        <div>
+            <h3>User details</h3>
+            <dl class="m-data">
+                <dt class="m-data__label">Username:</dt>
+                <dd class="m-data__value">{{ vm.user.username  }}</dd>
+            </dl>
+            <dl class="m-data">
+                <dt class="m-data__label">Is active:</dt>
+                <dd class="m-data__value">{{ vm.user.is_active  }}</dd>
+            </dl>
+        </div>
+        <div>
+            <h3>Groups</h3>
+            <ul ng-repeat="(id, group) in vm.user.groups track by $index" class="u-no-list">
+                <li><i class="material-icons material-icons--small">&#xE5CA;</i> {{ group.name  }}</li>
+            </ul>
+        </div>
+    </div>
+    <cms-actions actions="vm.action" id="vm.user.id" call="vm.callFunction(cmsFn)"></cms-actions>
+</div>

@@ -1,0 +1,236 @@
+$form-label-width: 25%;
+
+.m-form {
+  margin-bottom: 0;
+}
+
+.m-form__block {
+  border-top: 1px solid #e2e2e2;
+  padding-top: 20px;
+
+  &:first-child {
+    border-top: none;
+    padding-top: 0;
+  }
+}
+
+.m-form__block-title {
+  font-weight: bold;
+  margin-bottom: 20px;
+}
+
+.m-form__block-field {
+  margin-bottom: 30px;
+  clear: both;
+  @include clearfix;
+}
+
+.m-form__label {
+  float: left;
+  width: 23%;
+  text-transform: uppercase;
+  padding: 0 0 5px;
+  margin-right: 2%;
+}
+
+.m-form__label--big {
+  line-height: 48px;
+}
+.m-form__label--bold {
+  font-weight: bold;
+  @include font-size(16px);
+  margin-bottom: 15px;
+}
+
+.m-form__field {
+  @include font-size(16px);
+  position: relative;
+  text-transform: none;
+  border: 1px solid #c3c3c2;
+  box-sizing: border-box;
+  display: inline-block;
+  line-height: 1;
+  padding: 5px 10px;
+  width: 75%;
+  max-width: 300px;
+  min-height: 48px;
+  &:not(select) {
+    appearance: none;
+    -moz-appearance: none;
+    -webkit-appearance: none;
+  }
+
+  &::-webkit-input-placeholder {
+    color: $black;
+  }
+
+  &:-moz-placeholder { /* Firefox 18- */
+    color: $black;
+  }
+
+  &::-moz-placeholder {  /* Firefox 19+ */
+    color: $black;
+  }
+
+  &:-ms-input-placeholder {
+    color: $black;
+  }
+
+  .m-form:not(.m-form--no-highlight) &.ng-invalid.ng-touched {
+    border-color: $negative;
+  }
+}
+
+.m-form__field--group {
+  padding: 0;
+}
+
+.m-form__field--checkbox {
+  display: inline-block;
+  margin: 15px 15px 15px 0;
+}
+
+.m-form__inline {
+    position: absolute;
+    top: 0;
+    left: 0;
+    bottom: 0;
+    right: 48px;
+}
+
+.m-form__input {
+    border: 0;
+}
+
+.m-form__input--full {
+    position: absolute;
+    top: 0;
+    left: 0;
+    bottom: 0;
+    right: 0;
+    width: 100%;
+    display: block;
+    padding: 10px;
+}
+
+.m-form__field--richtextarea {
+  clear: both;
+  margin-bottom: 5px;
+  width: 90%;
+  display: inline-block;
+}
+
+.m-form__field--select {
+    height: 35px;
+    &:disabled {
+        border: 1px solid #999;
+        color: #333;
+        opacity: 0.5;
+    }
+}
+
+.m-form__select--primary {
+    background: $primary-color;
+}
+
+.m-form__message--error {
+    color: $negative;
+    margin: 5px 0;
+    clear: both;
+}
+
+.m-form__block-field--checkbox {
+    display: inline-block;
+    margin-right: 10px;
+}
+
+.m-form__field--long {
+    float: none;
+    width: 100%;
+    margin-top: 20px;
+    display: block;
+}
+
+.m-form__error {
+    overflow: hidden;
+    clear: both;
+}
+
+    .m-form__required {
+        font-weight: bold;
+        @include font-size(14px);
+    }
+
+    .m-form__description {
+        display: block;
+        color: #575757;
+        text-transform: lowercase;
+    }
+
+    .m-form__field--stacked {
+        margin-bottom: 10px;
+    }
+
+    .m-form__block-field--small {
+        margin-bottom: 10px;
+    }
+
+    .m-form__group {
+        overflow: hidden;
+        padding: 10px;
+        background: #ececec;
+        margin-bottom: 5px;
+    }
+
+    .m-form--group--inline {
+      display: inline-block;
+      vertical-align: middle;
+    }
+
+    .m-form__group--blue {
+        background: $edblue;
+        .m-form__label {
+            color: $white;
+        }
+    }
+
+    .m-form__title {
+        margin-bottom: 10px;
+    }
+
+    .m-form__select {
+        display: inline-block;
+        position: relative;
+        overflow: hidden;
+        width: $form-label-width;
+        &, > * {
+            cursor: pointer;
+        }
+        select {
+            box-sizing: content-box;
+            position: relative;
+            z-index: 1;
+            background: transparent;
+            border: 0;
+            outline: 0;
+            font-size: 12px;
+            width: 120%;
+            height: 17px;
+
+            -webkit-user-select: none;
+            -moz-user-select: -moz-none;
+            -ms-user-select: none;
+            user-select: none;
+
+            -webkit-appearance: none;
+            -moz-appearance: radio-container;
+            appearance: none;
+        }
+    }
+    
+    .m-form__select-icon {
+        position: absolute;
+        right: 10px;
+        top: 50%;
+        transform: translateY(-50%);
+    }

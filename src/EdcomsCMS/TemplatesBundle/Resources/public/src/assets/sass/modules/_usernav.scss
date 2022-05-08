@@ -1,0 +1,22 @@
+.m-usernav {
+    background: $secondary-color-dark;
+    color: $white;
+
+    // TODO: To refactor, add classes to not use selectors
+    li {
+        float: left;
+        text-transform: uppercase;
+        padding-left: 20px;
+    }
+    a {
+        text-decoration: none;
+        &:hover {
+            text-decoration: underline;
+        }
+    }
+}
+
+.m-usernav__item {
+    padding: 50px 20px;
+}
+

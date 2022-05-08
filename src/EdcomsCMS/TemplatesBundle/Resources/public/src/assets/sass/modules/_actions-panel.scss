@@ -1,0 +1,24 @@
+.m-actions-panel {
+  padding: 20px;
+}
+
+.m-actions-panel--grey {
+  background: $secondary-color-dark;
+}
+
+.m-actions-panel--bottom {
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  z-index: 2;
+}
+
+  .m-actions-panel__label {
+    color: $white;
+    text-transform: uppercase;
+    @include font-size(18px);
+    margin: 0;
+    font-weight: bold;
+    margin: 11px;
+  }

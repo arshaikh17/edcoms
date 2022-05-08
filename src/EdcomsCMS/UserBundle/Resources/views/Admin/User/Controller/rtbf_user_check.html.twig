@@ -1,0 +1,52 @@
+{% extends '@SonataAdmin/standard_layout.html.twig' %}
+
+
+{% block sonata_admin_content %}
+
+    <div class="sonata-ba-delete">
+        <div class="box box-primary">
+            <div class="box-header">
+                <h4 class="box-title">"Right to be forgotten" user check</h4>
+            </div>
+            <div class="box-body">
+                <div class="row">
+                    <div class="col-md-8">
+                        <p>Type an email below and click the search button to find out whether "Right to be forgotten" has been applied.</p>
+                        {{ form_start(form) }}
+                        <div class="input-group input-group-sm">
+                            {{ form_widget(form.username, {attr: {class: 'form-control'}}) }}
+                            <span class="input-group-btn">
+                              {{ form_widget(form.search, {attr: {class: 'btn btn-primary'}}) }}
+                            </span>
+                        </div>
+
+
+                        {{ form_end(form) }}
+                        <br>
+                        {% if isRTBFApplied is not null %}
+                            {% set msg = isRTBFApplied==false
+                                ? '"Right to be forgotten" hasn\'t been applied to user with username "'~username~'"'
+                                : '"Right to be forgotten" has been applied to user with username "'~username~'" on the '
+                            %}
+                            {% set msgClass = isRTBFApplied==false
+                                ? 'alert alert-warning'
+                                : 'alert alert-success'
+                            %}
+                            <div class="{{ msgClass }}">
+                                {{ msg }}
+                            </div>
+
+                        {% endif %}
+                    </div>
+                </div>
+            </div>
+            <div class="box-footer clearfix">
+                <a class="btn btn-primary" href="{{ admin.generateUrl('list') }}">
+                    <i class="fa fa-th-list" aria-hidden="true"></i>
+                    Return to the list
+                </a>
+            </div>
+        </div>
+    </div>
+
+{% endblock %}

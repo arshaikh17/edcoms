@@ -1,0 +1,6 @@
+services:
+  edcoms.auth.admin.user:
+      class: EdcomsCMS\AuthBundle\Admin\UserAdmin
+      arguments: [~, EdcomsCMS\AuthBundle\Entity\cmsUsers, ~]
+      tags:
+          - { name: sonata.admin, manager_type: orm, label: FO Users, group: "%sonata.user.admin.groupname%", label_catalogue: "%sonata.user.admin.label_catalogue%", icon: "<i class=\"fa fa-users\"></i>" }

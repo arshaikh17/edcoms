@@ -1,0 +1,25 @@
+<div class="m-card">
+    <div class="m-card__content">
+        <h2>Are you sure you want to delete {{ vm.contentToDelete }}?</h2>
+        <p class="m-card__introduction">Don't worry, you can restore it later if you want to!</p>
+        <div ng-show="vm.contentHasChildren">
+            <form class="m-form">
+                <p>{{ vm.contentToDelete }} has some sub-content. What do you want to do?</p>
+                <fieldset>
+                    <legend class="u-screenreader">{{ vm.contentToDelete }} has some sub-content. What do you want to do?</legend>
+                    <div class="m-form__block-field--checkbox">
+                        <input id="mode-single" name="mode" class="m-form__field--checkbox" type="radio" value="single" ng-value="'single'"
+                               ng-checked="vm.deleteMode=='single'" ng-model="vm.deleteMode" />
+                        <label for="mode-single" class="m-form__label--checkbox">Delete only the content?</label>
+                    </div>
+                    <div class="m-form__block-field--checkbox">
+                        <input id="mode-recursive" name="mode" class="m-form__field--checkbox" type="radio" value="recursive" ng-value="'recursive'"
+                               ng-checked="vm.deleteMode=='recursive'" ng-model="vm.deleteMode" />
+                        <label for="mode-recursive" class="m-form__label--checkbox">Delete the content and its sub-content?</label>
+                    </div>
+                </fieldset>
+            </form>
+        </div>
+    </div>
+    <cms-actions actions="vm.action" call="vm.callFunction(cmsFn)"></cms-actions>
+</div>

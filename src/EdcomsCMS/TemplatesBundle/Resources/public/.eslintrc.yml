@@ -1,0 +1,25 @@
+extends: ["angular", "eslint:recommended"]
+env:
+    es6: true
+rules:
+    angular/on-watch: 0
+    angular/no-private-call: 0
+    angular/log: 0
+    no-console: 1
+    indent: ["error", 2]
+    no-var: 2
+globals:
+    _ : true
+    toastr: true
+    tinymce: true
+    console: true
+    describe: true
+    beforeEach: true
+    inject: true
+    it: true
+    expect: true
+    module: true
+    spyOn: true
+    fdescribe: true
+    fit: true
+    beforeAll: true

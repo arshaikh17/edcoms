@@ -1,0 +1,112 @@
+<div class="m-card">
+    <form name="vm.ContentCreate" class="m-form" novalidate>
+        <cms-actions actions="vm.topAction" id="vm.ugc.ContentCreate.id" call="vm.callFunction(cmsFn)"></cms-actions>
+        <div class="m-card__content">
+            <h2>{{ vm.title }}</h2>
+            <div class="m-metadata">
+                <div class="m-metadata__list">
+                    <span class="m-metadata__item m-metadata__label">Publish status:</span>
+                </div>
+                <div class="m-metadata__action">
+                    <label class="m-btn m-btn--rsd m-btn--small m-btn--unselected" ng-class="{'m-btn--published' : vm.ugc.ContentCreate.status === 'published' }">
+                        <input name="status" class="is-hidden" type="radio" value="published" ng-model="vm.ugc.ContentCreate.status">
+                        Published
+                    </label>
+
+                    <label class="m-btn m-btn--rsd m-btn--small m-btn--unselected" ng-class="{'m-btn--pending' : vm.ugc.ContentCreate.status === 'pending' }">
+                        <input name="status" class="is-hidden" type="radio" value="pending" ng-model="vm.ugc.ContentCreate.status">
+                        Pending
+                    </label>
+                    <label class="m-btn m-btn--rsd m-btn--small m-btn--unselected"  ng-class="{'m-btn--rejected' : vm.ugc.ContentCreate.status === 'rejected' }">
+                        <input name="status" class="is-hidden" type="radio" value="rejected" ng-model="vm.ugc.ContentCreate.status">
+                        Rejected
+                    </label>
+                </div>
+            </div>
+
+            <div class="m-form__block" ng-if="vm.fields">
+                <div class="m-form__block-field">
+                    <label for="ContentCreateTemplateFiles">Template to use <span class="m-form__required">*</span>:</label>
+                    <select id="ContentCreateTemplateFiles" class="m-form__field m-form__field--long m-form__field--select" name="TemplateFiles" ng-required="true"
+                            ng-model="ugc.ContentCreate.templateFile" ng-options="tf.id as tf.templateFile for tf in vm.templateFiles">
+                    </select>
+                    <div ng-show="vm.ContentCreate.$submitted || vm.ContentCreate.ContentType.$touched">
+                        <div ng-show="vm.ContentCreate.TemplateFiles.$error.required" class="m-form__message--error">Please select a template file.</div>
+                    </div>
+                </div>
+            </div>
+            <div class="m-form__block" >
+                <div class="m-form__block-field">
+                    <label for="ContentCreateTitle" class="m-form__label">Title <span class="m-form__required">*</span></label>
+                    <input id="ContentCreateTitle" class="m-form__field" type="text" name="Title" ng-required="true"
+                           ng-model="vm.ugc.ContentCreate.title"/>
+                    <div ng-show="vm.ContentCreate.$submitted || vm.ContentCreate.Title.$touched">
+                        <div ng-show="vm.ContentCreate.Title.$error.required" class="m-form__message--error">Title is required.</div>
+                    </div>
+                </div>
+                <div class="m-form__block-field">
+                    <label for="ContentCreateStructureLink" class="m-form__label">Friendly URL</label>
+                    <input id="ContentCreateStructureLink" class="m-form__field" type="text" name="StructureLink"
+                           ng-model="vm.ugc.ContentCreate.structure.link"/>
+                </div>
+                <div class="m-form__block-field">
+                    <label for="ContentCreateStructurePriority" class="m-form__label">Priority</label>
+                    <input id="ContentCreateStructurePriority" class="m-form__field" type="number" name="StructurePriority"
+                           ng-model="vm.ugc.ContentCreate.structure.priority"/>
+                </div>
+                <!--{# For each fields, display it according to field type #}-->
+                <div ng-repeat="f in vm.fields track by $index">
+                    <div class="m-form__block-field">
+                        <label ng-if="f.fieldType!='hidden'" class="m-form__label">{{ f.label }}
+                            <span class="m-form__required" ng-if="required[f.name]">*</span>
+                            <small class="m-form__description" ng-if="f.fieldType!='hidden'">{{ f.description }}</small>
+                        </label>
+                        <div ng-switch on="f.fieldType">
+                            <input class="m-form__field" type="text" ng-switch-when="text" ng-model="vm.ugc.ContentCreate[f.name]" name="{{ f.name }}" ng-required="vm.required[f.name]"/>
+                            <input class="m-form__field" type="text" ng-switch-when="number" ng-model="vm.ugc.ContentCreate[f.name]" name="{{ f.name }}" ng-required="vm.required[f.name]"/>
+                            <input class="m-form__field m-form__field--date" type="text" ng-switch-when="date" ng-model="vm.ugc.ContentCreate[f.name]" name="{{ f.name }}" ng-required="vm.required[f.name]"/>
+                            <input class="m-form__field" type="text" ng-switch-when="file" ng-model="vm.ugc.ContentCreate[f.name]" name="{{ f.name }}" ng-required="vm.required[f.name]"/>
+                            <input class="m-form__field" type="text" ng-switch-when="image" ng-model="vm.ugc.ContentCreate[f.name]" name="{{ f.name }}" ng-required="vm.required[f.name]"/>
+                            <input class="m-form__field--checkbox" type="checkbox" ng-switch-when="checkbox" ng-true-value="'1'" ng-false-value="'0'" name="{{ f.name }}" ng-model="vm.ugc.ContentCreate[f.name]" ng-required="vm.required[f.name]"/>
+                            <textarea class="m-form__field" ng-switch-when="textarea" ng-model="vm.ugc.ContentCreate[f.name]" name="{{ f.name }}" ng-required="vm.required[f.name]"></textarea>
+
+                        </div>
+                        <div class="m-form__group" ng-if="f.fieldType=='checkbox_array'">
+                            <div class="m__form__block-field"  ng-repeat="cb in (f.options).split(';')">
+                                <input id="{{ f.name}}-{{ cb }}" name="{{ f.name }}[]" class="m-form__field--checkbox" type="checkbox" value="{{ cb }}" ng-true-value="cb" ng-false-value=""
+                                       ng-checked="(vm.ugc.ContentCreate[f.name]).indexOf(cb) > -1" ng-click="vm.toggleOptions(f.id, cb)" ng-required="vm.required[f.name]"/>
+                                <label for="{{ f.name}}-{{cb }}">{{ cb }}</label>
+                            </div>
+                        </div>
+                        <div class="m-form__group" ng-if="f.fieldType=='radio_array'">
+                            <div class="m__form__block-field"  ng-repeat="cb in (f.options).split(';')">
+                                <input id="{{ f.name}}-{{cb }}" name="{{ f.name }}" class="m-form__field--checkbox" type="radio" value="{{ cb }}" ng-true-value="cb" ng-false-value=""
+                                       ng-checked="vm.ugc.ContentCreate[f.name] == cb" ng-model="vm.ugc.ContentCreate[f.name]" ng-required="vm.required[f.name] && !vm.ugc.ContentCreate[f.name]"/>
+                                <label for="{{ f.name}}-{{cb }}">{{ cb }}</label>
+                            </div>
+                        </div>
+                        <div ng-if="f.fieldType=='richtextarea'">
+                            <textarea class="m-form__field" data-ui-tinymce data-ng-model="vm.ugc.ContentCreate[f.name]" name="{{ f.name }}" ng-required="vm.required[f.name]"></textarea>
+                        </div>
+
+                        <div ng-if="f.fieldType=='file_array'">
+                            <p ng-if="!vm.ugc.ContentCreate[f.name]"><b>No files have been uploaded.</b></p>
+                            <div class="file" ng-repeat="file in vm.ugc.ContentCreate[f.name]">
+                                <a href="{{ file.path }}" download="">{{ file.title }}</a>
+                            </div>
+                        </div>
+                        <div class="m-form__error" ng-show="required[f.name] && (vm.ContentCreate.$submitted || vm.ContentCreate[f.name].$touched)">
+                            <p ng-show="vm.ContentCreate[f.name].$error.required" class="m-form__message--error">Required</p>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+        <cms-actions actions="vm.action" id="vm.ugc.ContentCreate.id" call="vm.callFunction(cmsFn)"></cms-actions>
+    </form>
+</div>
+
+
+
+

@@ -1,0 +1,17 @@
+.m-bar {
+  margin-bottom: 1px;
+  background: #d8d8d8;
+  @include clearfix();
+}
+
+  .m-bar__content {
+    float: left;
+    line-height: 1;
+    padding: 13px 13px 14px 13px;
+    margin: 0;
+  }
+
+  .m-bar__actions {
+    float: right;
+    font-size: 0;
+  }

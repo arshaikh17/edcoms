@@ -1,0 +1,52 @@
+# Linter Options
+# 0 - no error
+# 1 - warning
+# 2 - error
+files:
+  include: '**/*.scss'
+options:
+  # Don't merge default rules
+  merge-default-rules: false
+  formatter: stylish
+# Rule Configuration
+rules:
+  # disable error for border
+  border-zero:
+    - 0
+    -
+      convention: 0
+  # error if quotes are not double
+  quotes:
+    - 2
+    -
+      style: double
+  one-declaration-per-line: 2
+  # BEM element depth: 1
+  bem-depth:
+    - 2
+    -
+      max-depth: 1
+
+  # force naming convention
+  class-name-format:
+    - 2
+    -
+      allow-leading-underscore: true
+      convention: ^(?:u|is|has|l)\-[a-zA-Z0-9]*(\-*[0-9a-z]*)*$|^(?!u|is|has|l)(?:m\-)*([a-z0-9\-])*(?:\_\_[0-9a-z\-]*)*(?:\-\-[0-9a-z\-]*)*$
+  id-name-format:
+    - 2
+    -
+      allow-leading-underscore: true
+      convention: hyphenatedlowercase
+  # only placeholder extend
+  placeholder-in-extend: 2
+  placeholder-name-format:
+    - 1
+    - convention: hyphenatedlowercase
+  # respect import format - no underscore and no extensions
+  clean-import-paths:
+    - 1
+    - filename-extension: false
+      leading-underscore: false
+  # show if the is mergeable css selector
+  no-mergeable-selectors: 1

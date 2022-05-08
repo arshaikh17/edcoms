@@ -1,0 +1,48 @@
+{#{% block custom_field_data_file_widget %}#}
+
+    {#{{ form_row(form._type) }}#}
+    {#{{ form_label(form.value) }}#}
+    {#{{ form_errors(form.value) }}#}
+    {#{{ form_widget(form.value) }}#}
+    {#<div#}
+            {#class="file-picker"#}
+            {#data-widget="edcoms-file-picker"#}
+            {#data-input-id="{{ form.value.vars['id'] }}"#}
+            {#data-default-placeholder = "{{ asset('bundles/edcomscmscontent/image/media/placeholder-none.jpg') }}"#}
+            {#data-default-file-placeholder = " {{ asset('bundles/edcomscmscontent/image/media/placeholder.jpg') }}"#}
+            {#data-dialog-url = "{{ form.vars['baseDialogURL']~form.value.vars['id'] }}"#}
+    {#>#}
+        {#<div class="img-wrap item">#}
+            {#<img class="img-placeholder" src="{{ form.value.vars['value']|filePickerPlaceholder }}" data-action="openFilePicker" data-item="placeholder">#}
+        {#</div>#}
+        {#<a class="btn btn-app item" data-action="openFilePicker">#}
+            {#<i class="fa fa-file"></i> Choose#}
+        {#</a><a class="btn btn-app item" data-action="remove">#}
+            {#<i class="fa fa-trash"></i> Remove#}
+        {#</a>#}
+        {#<div class="file-title" data-item="file-title">{{ form.value.vars['value']|basename }}</div>#}
+    {#</div>#}
+{#{% endblock %}#}
+
+{% block media_widget %}
+    {% set value = mediaValue %}
+    {{ block('form_widget') }}
+    <div
+            class="file-picker"
+            data-widget="edcoms-file-picker"
+            data-input-id="{{ id }}"
+            data-default-placeholder = "{{ asset('bundles/edcomscmscontent/image/media/placeholder-none.jpg') }}"
+            data-default-file-placeholder = " {{ asset('bundles/edcomscmscontent/image/media/placeholder.jpg') }}"
+            data-dialog-url = "{{ form.vars['baseDialogURL']~id }}"
+    >
+        <div class="img-wrap item">
+            <img class="img-placeholder" src="{{ value|filePickerPlaceholder }}" data-action="openFilePicker" data-item="placeholder">
+        </div>
+        <a class="btn btn-app item" data-action="openFilePicker">
+            <i class="fa fa-file"></i> Choose
+        </a><a class="btn btn-app item" data-action="remove">
+            <i class="fa fa-trash"></i> Remove
+        </a>
+        <div class="file-title" data-item="file-title">{{ mediaTitle }}</div>
+    </div>
+{% endblock %}

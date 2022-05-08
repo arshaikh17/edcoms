@@ -1,0 +1,55 @@
+.l-header {
+    position: relative;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.26);
+    .material-icons {
+        @include font-size(26px);
+    }
+
+}
+.m-header {
+}
+
+    .m-header__item {
+        float: left;
+    }
+
+    .m-header__user {
+        h1 {
+            margin: 0;
+        }
+    }
+    .m-header__nav {
+        background: $secondary-color;
+
+
+        .material-icons {
+            color: $white;
+        }
+
+    }
+        .m-header__row {
+            @include clearfix;
+        }
+
+        .m-header__nav-action {
+            &.is-active, &:hover {
+                background: $secondary-color-dark;
+                .material-icons {
+                    color: $primary-color;
+                }
+            }
+            &:hover {
+                cursor: pointer;
+            }
+        }
+
+    .m-header__button {
+        padding: 9px;
+        display: block;
+        -moz-appearance: none;
+        -webkit-appearance: none;
+        appearance: none;
+        background: none;
+        border: none;
+        text-decoration: none
+    }

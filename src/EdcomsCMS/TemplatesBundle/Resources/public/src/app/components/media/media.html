@@ -1,0 +1,63 @@
+<div class="m-card" ng-if="vm.mediaItem">
+    <div class="m-card__content" ng-if="vm.mediaItem">
+        <div class="u-align-center">
+            <img ng-if="vm.mediaItem.thumb" ng-src="{{ vm.mediaItem.thumb }}" alt=""/>
+            <i ng-if="vm.mediaItem.type === 'directory'" class="m-card__icon m-card__icon--large material-icons">&#xE2C7;</i>
+        </div>
+        <h1 class="m-card__title u-clearfix">
+            <span>{{ vm.mediaItem.title }}</span>
+            <a ng-if="vm.mediaItem.type !== 'directory'" ng-href="{{ vm.link }}{{ vm.mediaItem.path }}" download="">
+              <i class="material-icons">&#xE2C4;</i>
+          </a>
+        </h1>
+        <p class="u-subheader">[{{ vm.mediaItem.type }}]</p>
+        <p class="m-card__introduction m-card__introduction--small">Hey, feel free to download any of the media below...</p>
+
+        <div class="m-metadata m-metadata--grey m-metadata--small" permissions="media;create">
+            <button id="uploadify_button"></button>
+            <p class="m-metadata__item u-float-left">Add files here</p>
+        </div>
+        <!--  TODO: Uncomment once BE is done -->
+        <!-- <div class="m-metadata">
+            <button ng-click="vm.copyFiles()" ng-disabled="!vm.selectedFiles.length" class="m-btn m-btn--rsd m-btn--primary">
+                Copy files
+            </button>
+            <button ng-click="vm.pasteFiles()" ng-disabled="!vm.copiedFiled"
+                    class="m-btn m-btn--rsd m-btn--primary">Paste here
+            </button>
+        </div> -->
+
+        <div ng-if="vm.media.length" cms-equal-height>
+
+            <div class="m-card m-card--flat l-L-1of3" ng-repeat="child in vm.media track by $index">
+                <!--Most recent version is first in array content-->
+                <label class="m-card__label">
+                    <input class="m-card__input is-hidden" type="checkbox" ng-model="vm.selectedFiles[child.path]"
+                           ng-change="vm.toggleFile(child)"/>
+                    <div class="m-card__content  m-card__content--grey js-eqH">
+                        <img ng-if="child.thumb" ng-src="{{ child.thumb }}" alt=""/>
+                        <div class="u-align-center">
+                            <i ng-if="child.type === 'directory'" class="m-card__icon material-icons">&#xE2C7;</i>
+                        </div>
+                        <h2 class="m-card__title">
+                            <span class="u-break-word">{{ child.title }}</span>
+                        </h2>
+                        <p class="u-subheader u-subheader--small">[{{ child.type }}]</p>
+                        <p class="m-card__meta" ng-if="child.modified">Created | Modified on <b>{{ child.modified |  date:'dd/MM/yyyy' }}</b></p>
+                    </div>
+                </label>
+                <div class="m-card__button">
+                    <p class="m-card__button-label">Download</p>
+                    <div class="m-card__button-action">
+                        <a class="m-btn m-btn--sq  m-btn--primary" ng-href="{{ vm.link }}{{child.path}}"
+                           download="">
+                            <i class="material-icons">&#xE2C4;</i>
+                            <label class="m-btn__label">Download</label>
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<cms-spinner ng-if="vm.loading"></cms-spinner>

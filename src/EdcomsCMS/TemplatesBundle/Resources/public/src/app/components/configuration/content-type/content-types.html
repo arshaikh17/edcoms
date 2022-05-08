@@ -1,0 +1,25 @@
+<div class="m-card">
+    <div class="m-card__content">
+        <h1>Content type</h1>
+        <p class="m-card__introduction">Let's get you started. Create your site architecture using content types right here.</p>
+        <div class="m-card m-card--grey m-card--flat l-M-1of2">
+            <div ng-if="vm.contentTypes.length" class="m-card__content">
+                <h3>Existing content types</h3>
+                <ul class="m-tree" ng-init="getcontentTypes()">
+                    <li class="m-tree__leaf" ng-repeat="ct in vm.contentTypes">
+                        <i class="m-tree__icon m-tree__icon--small material-icons">&#xE8A0;</i>
+                        <a ng-href="#/configuration/content-type/update/{{ct.id}}" permissions="configuration.contentTypes;edit">
+                            {{ ct.name }}
+                        </a>
+                    </li>
+                </ul>
+            </div>
+            <div ng-if="!vm.contentTypes.length" class="m-card__content">
+                <p class="m-card__introduction">There is no content types yet. Create your custom content type using the button below.</p>
+            </div>
+            <div permissions="configuration.contentTypes;create">
+              <cms-actions actions="vm.action"></cms-actions>
+            </div>
+        </div>
+    </div>
+</div>

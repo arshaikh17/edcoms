@@ -1,0 +1,146 @@
+services:
+  edcoms.content.form_type_extension:
+      class: EdcomsCMS\ContentBundle\Form\Extension\FieldTypeExtension
+      tags:
+        - { name: form.type_extension, extended_type: Symfony\Component\Form\Extension\Core\Type\FormType }
+  edcoms.content.form_type.customfield.content_array:
+      class: EdcomsCMS\ContentBundle\Form\Type\CustomField\CustomFieldContentArrayType
+      arguments: [ '@edcoms.content.service.content_service', '@doctrine.orm.entity_manager']
+      tags:
+          - { name: form.type }
+  edcoms.content.form_type.customfield.entity:
+      class: EdcomsCMS\ContentBundle\Form\Type\CustomField\CustomFieldEntityType
+      arguments: [ '@edcoms.content.service.content_service', '@doctrine.orm.entity_manager']
+      tags:
+          - { name: form.type }
+
+
+  # CustomFieldData Types
+  edcoms.content.form_type.customfield_data:
+      class: EdcomsCMS\ContentBundle\Form\Type\CustomFieldData\CustomFieldDataType
+      arguments: ['@security.token_storage']
+      tags:
+          - { name: form.type }
+  edcoms.content.form_type.customfield_data.checkbox_array:
+      class: EdcomsCMS\ContentBundle\Form\Type\CustomFieldData\CustomFieldDataCheckboxArrayType
+      arguments: ['@security.token_storage']
+      tags:
+          - { name: form.type }
+  edcoms.content.form_type.customfield_data.checkbox:
+      class: EdcomsCMS\ContentBundle\Form\Type\CustomFieldData\CustomFieldDataCheckboxType
+      arguments: ['@security.token_storage']
+      tags:
+          - { name: form.type }
+  edcoms.content.form_type.customfield_data.date:
+      class: EdcomsCMS\ContentBundle\Form\Type\CustomFieldData\CustomFieldDataDateType
+      arguments: ['@security.token_storage']
+      tags:
+          - { name: form.type }
+  edcoms.content.form_type.customfield_data.file:
+      class: EdcomsCMS\ContentBundle\Form\Type\CustomFieldData\CustomFieldDataFileType
+      arguments: ['@security.token_storage']
+      tags:
+          - { name: form.type }
+  edcoms.content.form_type.customfield_data.video:
+      class: EdcomsCMS\ContentBundle\Form\Type\CustomFieldData\CustomFieldDataVideoType
+      arguments: ['@security.token_storage']
+      tags:
+          - { name: form.type }
+  edcoms.content.form_type.customfield_data.number:
+      class: EdcomsCMS\ContentBundle\Form\Type\CustomFieldData\CustomFieldDataNumberType
+      arguments: ['@security.token_storage']
+      tags:
+          - { name: form.type }
+  edcoms.content.form_type.customfield_data.radio_array:
+      class: EdcomsCMS\ContentBundle\Form\Type\CustomFieldData\CustomFieldDataRadioArrayType
+      arguments: ['@security.token_storage']
+      tags:
+          - { name: form.type }
+  edcoms.content.form_type.customfield_data.rich_textarea:
+      class: EdcomsCMS\ContentBundle\Form\Type\CustomFieldData\CustomFieldDataRichTextAreaType
+      arguments: ['@security.token_storage']
+      tags:
+          - { name: form.type }
+  edcoms.content.form_type.customfield_data.textarea:
+      class: EdcomsCMS\ContentBundle\Form\Type\CustomFieldData\CustomFieldDataTextAreaType
+      arguments: ['@security.token_storage']
+      tags:
+          - { name: form.type }
+  edcoms.content.form_type.customfield_data.text:
+      class: EdcomsCMS\ContentBundle\Form\Type\CustomFieldData\CustomFieldDataTextType
+      arguments: ['@security.token_storage']
+      tags:
+          - { name: form.type }
+  edcoms.content.form_type.content_fields_data:
+      class: EdcomsCMS\ContentBundle\Form\Type\Content\ContentFieldsType
+      arguments: [ '@edcoms.content.service.content_service']
+      tags:
+          - { name: form.type }
+  edcoms.content.form_type.content_fields_data.content_array:
+      class: EdcomsCMS\ContentBundle\Form\Type\CustomFieldData\CustomFieldDataContentArrayType
+      arguments: ['@security.token_storage', '@doctrine.orm.entity_manager' ]
+      tags:
+          - { name: form.type }
+  edcoms.content.form_type.customfield_data.entity:
+      class: EdcomsCMS\ContentBundle\Form\Type\CustomFieldData\CustomFieldDataEntityType
+      arguments: [ '@security.token_storage', '@edcoms.content.service.content_service' ]
+      tags:
+          - { name: form.type }
+  edcoms.content.form_type.content_fields_data.group:
+      class: EdcomsCMS\ContentBundle\Form\Type\CustomFieldData\CustomFieldDataGroupType
+      arguments: ['@security.token_storage']
+      tags:
+          - { name: form.type }
+
+
+
+  # CustomFieldDataValue Types
+  edcoms.content.form_type.customfield_data.value.content:
+      class: EdcomsCMS\ContentBundle\Form\Type\CustomFieldData\Value\CustomFieldDataValueContentType
+      arguments: [ '@doctrine' ]
+      tags:
+          - { name: form.type }
+  edcoms.content.form_type.customfield_data.value.entity:
+      class: EdcomsCMS\ContentBundle\Form\Type\CustomFieldData\Value\CustomFieldDataValueEntityType
+      arguments: [ '@doctrine' ]
+      tags:
+          - { name: form.type }
+  edcoms.content.form_type.customfield_data.value.choice:
+      class: EdcomsCMS\ContentBundle\Form\Type\CustomFieldData\Value\CustomFieldDataValueChoiceType
+      arguments: [ '@form.choice_list_factory' ]
+      tags:
+          - { name: form.type }
+  edcoms.content.form_type.customfield_data.value.checkbox_array:
+      class: EdcomsCMS\ContentBundle\Form\Type\CustomFieldData\Value\CustomFieldDataValueCheckboxArrayType
+      arguments: [ '@form.choice_list_factory']
+      tags:
+          - { name: form.type }
+  edcoms.content.form_type.customfield.value.datetime:
+      class: EdcomsCMS\ContentBundle\Form\Type\CustomFieldData\Value\CustomFieldDataValueDateTimeType
+      arguments: [ '@sonata.core.date.moment_format_converter', '@translator']
+      tags:
+          - { name: form.type }
+
+
+  edcoms.content.form_type.structure:
+      class: EdcomsCMS\ContentBundle\Form\Type\Structure\StructureType
+      arguments: [ '@edcoms.content.service.content_service', '@edcoms.content.service.configuration']
+      tags:
+          - { name: form.type }
+
+  edcoms.content.form_type.structure.context:
+      class: EdcomsCMS\ContentBundle\Form\Type\Structure\StructureContextType
+      tags:
+          - { name: form.type }
+
+  # Media
+  edcoms.content.form_type.media.media:
+      class: EdcomsCMS\ContentBundle\Form\Type\Media\MediaType
+      arguments: [ '@doctrine.orm.entity_manager']
+      tags:
+          - { name: form.type }
+  edcoms.content.form_type.media.uploaded_media:
+      class: EdcomsCMS\ContentBundle\Form\Type\Media\UploadedMediaType
+      arguments: [ '@security.token_storage']
+      tags:
+          - { name: form.type }

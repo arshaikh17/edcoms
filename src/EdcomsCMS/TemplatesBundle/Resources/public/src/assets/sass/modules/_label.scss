@@ -1,0 +1,7 @@
+.m-label {
+  text-transform: uppercase;
+  background: #f2f2f2;
+  padding: 5px;
+  @include font-size(12px);
+  font-weight: bold;
+}

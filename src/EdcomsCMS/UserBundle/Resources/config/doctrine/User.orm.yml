@@ -1,0 +1,71 @@
+EdcomsCMS\UserBundle\Entity\User:
+  type: entity
+  inheritanceType: JOINED
+  discriminatorColumn:
+    name: discriminator
+    type: string
+    length: 255
+  discriminatorMap:
+    user: EdcomsCMS\UserBundle\Entity\User
+  table: fos_user
+  id:
+      id:
+          type: integer
+          generator: { strategy: AUTO }
+  fields:
+    firstName:
+      type: string
+      nullable: true
+    lastName:
+      type: string
+      nullable: true
+    confirmed:
+      type: boolean
+      nullable: true
+    createdAt:
+      column: created_at
+      type: datetime
+      nullable: false
+      gedmo:
+        timestampable:
+          on: create
+    updatedAt:
+      column: updated_at
+      type: datetime
+      nullable: true
+      gedmo:
+        timestampable:
+          on: update
+    confirmedAt:
+      column: confirmed_at
+      type: datetime
+      nullable: true
+      gedmo:
+        timestampable:
+          on: change
+          field: confirmed
+          value: true
+    pendingEmail:
+      column: pending_email
+      type: string
+      nullable: true                
+    pendingEmailCanonical:
+      column: pending_email_canonical
+      type: string
+      nullable: true          
+    previousEmails:
+      column: previous_emails
+      type: array
+      nullable: true
+    emailChangeRequestedAt:
+      column: email_change_requested_at
+      type: datetime
+      nullable: true
+    rtbfAppliedOn:
+      column: rtbf_applied_on
+      type: datetime
+      nullable: true
+    rtbfApplied:
+      column: rtbf_applied
+      type: boolean
+      nullable: true

@@ -1,0 +1,63 @@
+<div class="m-card">
+    <form name="vm.ContentTypeCreate" class="m-form" novalidate>
+        <cms-actions actions="vm.action" id="vm.mediatype.MediaTypeCreate.id" call="vm.callFunction(cmsFn)"></cms-actions>
+        <div class="m-card__content">
+            <h2>{{ vm.title }}</h2>
+            <div class="m-form__block">
+                <div class="m-form__block-field">
+                    <label for="ContentTypeCreateName" class="m-form__label">Content type name
+                        <span class="m-form__required">*</span>
+                    </label>
+                    <input id="ContentTypeCreateName" class="m-form__field" type="text" name="Name" ng-model="vm.contentType.name" ng-required="vm.required.name"/>
+                    <div ng-show="vm.required.name && (vm.ContentTypeCreate.$submitted || vm.ContentTypeCreate.Name.$touched)">
+                        <div ng-show="vm.ContentTypeCreate.Name.$error.required" class="m-form__message--error">Required.</div>
+                    </div>
+                </div>
+                <div class="m-form__block-field">
+                    <label for="ContentTypeCreateDescription" class="m-form__label">Description
+                        <span class="m-form__required">*</span>
+                    </label>
+                    <input type="text" id="ContentTypeCreateDescription" class="m-form__field" name="Description" ng-model="vm.contentType.description" ng-required="vm.required.description"/>
+                    <div ng-show="vm.required.description && (vm.ContentTypeCreate.$submitted || vm.ContentTypeCreate.Description.$touched)">
+                        <div ng-show="vm.ContentTypeCreate.Description.$error.required" class="m-form__message--error">Required.</div>
+                    </div>
+                </div>
+
+                <div class="m-form__block-field">
+                    <label for="ContentTypeCreateShowChildren" class="m-form__label">Show children</label>
+                    <input type="checkbox" id="ContentTypeCreateShowChildren" class="m-form__field--checkbox" name="ShowChildren" ng-model="vm.contentType.showChildren" ng-required="vm.required.showChildren"/>
+                    <div ng-show="vm.required.showChildren && (vm.ContentTypeCreate.$submitted || vm.ContentTypeCreate.ShowChildren.$touched)">
+                        <div ng-show="vm.ContentTypeCreate.ShowChildren.$error.required" class="m-form__message--error">Required.</div>
+                    </div>
+                </div>
+
+                <div class="m-form__block-field">
+                    <label for="ContentTypeCreateTemplateFile" class="m-form__label">Template file</label>
+                    <div class="u-overflow-hidden">
+                        <div ng-repeat="t in vm.template_files track by $index">
+                            <input type="text" id="ContentTypeCreateTemplateFile" class="m-form__field m-form__field--stacked" name="TemplateFile" ng-model="vm.contentType.template_files[$index].templateFile" ng-required="vm.required.template_files"/>
+                            <a ng-click="vm.deleteTemplate($index)">
+                                <i class="material-icons material-icons--small">&#xE872;</i>
+                            </a>
+                        </div>
+                        <button class="m-btn m-btn--rsd m-btn--grey" type="button" ng-click="vm.addTemplate()">
+                            <i class="m-btn__icon material-icons">&#xE145;</i>
+                            Add template</button>
+                    </div>
+                    <div ng-show="vm.required.templateFile && (vm.ContentTypeCreate.$submitted || vm.ContentTypeCreate.TemplateFile.$touched)">
+                        <div ng-show="vm.ContentTypeCreate.TemplateFile.$error.required" class="m-form__message--error">Required.</div>
+                    </div>
+                </div>
+            </div>
+            <div class="m-form__block">
+                <h3 class="m-form__block-title">Fields</h3>
+                <cms-custom-fields fields="vm.customfields"></cms-custom-fields>
+                <button class="m-btn m-btn--rsd m-btn--grey" type="button" ng-click="vm.addField()">
+            		  <i class="m-btn__icon material-icons">&#xE145;</i>
+            		  Add field
+                </button>
+            </div>
+        </div>
+        <cms-actions actions="vm.action" id="vm.mediatype.MediaTypeCreate.id" call="vm.callFunction(cmsFn)"></cms-actions>
+    </form>
+</div>

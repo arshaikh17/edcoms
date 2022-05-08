@@ -1,0 +1,59 @@
+// Susy grid settings
+
+$susy: (
+        flow: ltr,                      // rtl | ltr                                          (http://susydocs.oddbird.net/en/latest/settings/#flow)
+        math: fluid,                    // fluid | static                                     (http://susydocs.oddbird.net/en/latest/settings/#math)
+        output: float,                  // float | isolate                                    (http://susydocs.oddbird.net/en/latest/settings/#output)
+        container: auto,                // <length> | auto                                    (http://susydocs.oddbird.net/en/latest/settings/#container)
+        container-position: center,     // left | center | right | <length> [*2]              (http://susydocs.oddbird.net/en/latest/settings/#container-position)
+        columns: 12,                    // <number> | <list>                                  (http://susydocs.oddbird.net/en/latest/settings/#columns)
+        gutters: 1/4,                   // <ratio>                                            (http://susydocs.oddbird.net/en/latest/settings/#gutters)
+        column-width: false,            // <length> | false/null                              (http://susydocs.oddbird.net/en/latest/settings/#column-width)
+        gutter-position: after,         // before | after | split | inside | inside-static    (http://susydocs.oddbird.net/en/latest/settings/#gutter-position)
+        global-box-sizing: border-box,  // border-box | content-box                           (http://susydocs.oddbird.net/en/latest/settings/#global-box-sizing)
+        last-flow: to,                  // from | to                                          (http://susydocs.oddbird.net/en/latest/settings/#last-flow)
+        debug: (                        // <map of sub-settings>                              (http://susydocs.oddbird.net/en/latest/settings/#debug)
+                image: hide,                  // show | hide | show-columns | show-baseline         (http://susydocs.oddbird.net/en/latest/settings/#debug-image)
+                output: background,           // background | overlay                               (http://susydocs.oddbird.net/en/latest/settings/#debug-output)
+                toggle: top right,            // right | left and top | bottom                      (http://susydocs.oddbird.net/en/latest/settings/#debug-toggle)
+                color: rgba(#66f, .25),       // <color>                                            (http://susydocs.oddbird.net/en/latest/settings/#debug-color)
+        ),
+        use-custom: (
+                background-image: true,       // <boolean>                                          (http://susydocs.oddbird.net/en/latest/settings/#custom-background-image)
+                background-options: false,    // <boolean>                                          (http://susydocs.oddbird.net/en/latest/settings/#custom-background-options)
+                box-sizing: true,             // <boolean>                                          (http://susydocs.oddbird.net/en/latest/settings/#custom-box-sizing)
+                clearfix: false,              // <boolean>                                          (http://susydocs.oddbird.net/en/latest/settings/#custom-clearfix)
+                rem: true,                    // <boolean>                                          (http://susydocs.oddbird.net/en/latest/settings/#custom-rem)
+        )
+);
+
+// Colour variables
+
+$white: #fff;
+$black: #000;
+
+$primary-color: #ffcb05;
+
+$secondary-color-dark: #414042;
+$secondary-color: #58595b;
+$secondary-color-light: #eeeeee;
+
+$positive: #62a60a;
+$negative: #F44336;
+$neutral: #727272;
+$edblue: #0091b2;
+$edgrey: #d0d3d4;
+
+// Breakpoint variables
+
+/* SCREEN BREAK POINTS ---------------------  */
+/* http://susydocs.oddbird.net/en/latest/toolkit/#tools-susy-breakpoint */
+/* http://breakpoint-sass.com/ */
+
+
+/* Mobile First */
+
+$small:                                320px;
+$medium:                               640px;
+$large:                                960px;
+$x-large:                              1280px;

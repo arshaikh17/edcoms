@@ -1,0 +1,55 @@
+services:
+  edcoms.content.admin.content_type:
+      class: EdcomsCMS\ContentBundle\Admin\ContentTypeAdmin
+      arguments: [~, EdcomsCMS\ContentBundle\Entity\ContentType, ~, '@edcoms.content.service.content_service']
+      tags:
+          - { name: sonata.admin, manager_type: orm, label: Content Types, group: Settings, audit: false,  icon: "<i class=\"fa fa-cogs\"></i>" }
+  edcoms.content.admin.template_file:
+      class: EdcomsCMS\ContentBundle\Admin\TemplateFileAdmin
+      arguments: [~, EdcomsCMS\ContentBundle\Entity\TemplateFiles, ~]
+      tags:
+          - { name: sonata.admin, manager_type: orm, label: Templates, show_in_dashboard: false, audit: false }
+  edcoms.content.admin.content:
+      class: EdcomsCMS\ContentBundle\Admin\ContentAdmin
+      arguments: [~, EdcomsCMS\ContentBundle\Entity\Content, ~ , '@service_container']
+      tags:
+        - { name: sonata.admin, manager_type: orm, label: Content, group: Site, audit: true,  icon: "<i class=\"fa fa-pencil-square-o\"></i>" }
+      calls:
+        - [ setTemplate, [edit, 'EdcomsCMSContentBundle::Admin/Content/edit.html.twig']]
+        - [ setTemplate, [list, 'EdcomsCMSContentBundle::Admin/Content/list.html.twig']]
+  edcoms.content.admin.custom_field:
+      class: EdcomsCMS\ContentBundle\Admin\CustomFieldAdmin
+      arguments: [~, EdcomsCMS\ContentBundle\Entity\CustomFields, ~, '@edcoms.content.service.content_service']
+      tags:
+          - { name: sonata.admin, manager_type: orm, label: Custom Fields, show_in_dashboard: false, audit: false }
+  edcoms.content.admin.custom_field_data:
+      class: EdcomsCMS\ContentBundle\Admin\CustomFieldDataAdmin
+      arguments: [~, EdcomsCMS\ContentBundle\Entity\CustomFieldData, ~]
+      tags:
+          - { name: sonata.admin, manager_type: orm, label: Custom Fields Data, show_in_dashboard: false, audit: true }
+  edcoms.content.admin.media_type:
+      class: EdcomsCMS\ContentBundle\Admin\MediaTypeAdmin
+      arguments: [~, EdcomsCMS\ContentBundle\Entity\MediaTypes, ~]
+      tags:
+          - { name: sonata.admin, manager_type: orm, label: Media Types, group: Settings}
+  edcoms.content.admin.url_redirect:
+      class: EdcomsCMS\ContentBundle\Admin\URLRedirectAdmin
+      arguments: [~, EdcomsCMS\ContentBundle\Entity\URLRedirect, ~, '@service_container']
+      tags:
+          - { name: sonata.admin, manager_type: orm, label: Redirects, group: Settings, audit: false,  icon: "<i class=\"fa fa-cogs\"></i>", show_mosaic_button: false }
+      calls:
+        - [ addChild, ['@edcoms.content.admin.url_redirect_usage']]
+        - [ setTemplate, ['edit', 'EdcomsCMSContentBundle::Admin/UrlRedirect/templates/edit.html.twig']]
+  edcoms.content.admin.url_redirect_usage:
+      class: EdcomsCMS\ContentBundle\Admin\URLRedirectUsageAdmin
+      arguments: [~, EdcomsCMS\ContentBundle\Entity\URLRedirectUsage, ~]
+      tags:
+          - { name: sonata.admin, manager_type: orm, label: Redirects usage, group: Settings, show_in_dashboard: false, audit: false,  icon: "<i class=\"fa fa-cogs\"></i>", show_mosaic_button: false }
+  edcoms.content.admin.sitemap:
+      class: EdcomsCMS\ContentBundle\Admin\SitemapAdmin
+      arguments: [~, EdcomsCMS\ContentBundle\Entity\SitemapCustomURL, ~, '@edcoms.content.service.sitemap']
+      tags:
+        - { name: sonata.admin, manager_type: orm, label: Sitemap, group: Settings, audit: false,  icon: "<i class=\"fa fa-link\"></i>" }
+      calls:
+        - [ setTemplate, [list, 'EdcomsCMSContentBundle::Admin/Sitemap/list.html.twig']]
+        - [ setTemplate, [edit, 'EdcomsCMSContentBundle::Admin/Sitemap/edit.html.twig']]

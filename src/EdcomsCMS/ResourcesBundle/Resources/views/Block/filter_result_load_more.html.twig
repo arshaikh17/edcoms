@@ -1,0 +1,12 @@
+
+
+    <div class="resources-loadmore {{ result is null or result.currentPage>=result.totalPages ? 'hidden' : ''  }}" data-filter-current-page="{{ result is null ? '' : result.currentPage }}" data-filter-total-pages="{{ result is null ? '' : result.totalPages }}" data-filter-total-items="{{ result is null ? '' : result.totalItems }}" data-filter-next-page-endpoint="{{ load_more_api_endpoint() }}">
+        {{ label }}
+    </div>
+
+    {# TODO The snippet below can also work without AJAX and as a result 'show more' page can be indexed by Search engines. To be discussed with the rest team whether this is a good practice #}
+    {#{% set pageURL= path(app.request.attributes.get('_route'), app.request.query.all|merge({'page': result.currentPage+1,'path':app.request.attributes.get('_route_params')['path']})) %}#}
+
+    {#<a href="{{ pageURL }}" data-filter-current-page="{{ result.currentPage }}" data-filter-total-pages="{{ result.totalPages }}" data-filter-total-items="{{ result.totalItems }}" data-filter-next-page-endpoint="">#}
+        {#Load More#}
+    {#</a>#}

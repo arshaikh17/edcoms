@@ -1,0 +1,10 @@
+EdcomsCMS\UserBundle\Entity\User:
+    exclusion_policy: ALL
+    discriminator:
+      field_name: user_type
+      disabled: true
+    properties:
+      firstName:
+        expose: true
+      lastName:
+        expose: true

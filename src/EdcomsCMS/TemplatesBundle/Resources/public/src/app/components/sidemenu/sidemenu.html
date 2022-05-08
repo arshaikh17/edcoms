@@ -1,0 +1,36 @@
+﻿<aside class="l-M-1of3 l-L-1of4">
+    <div class="m-sidemenu" ng-if="vm.title">
+        <header class="m-sidemenu__header m-sidemenu__button m-sidemenu__button--primary">
+            <h2 class="m-sidemenu__title m-sidemenu__button-label">{{vm.title}}</h2>
+        </header>
+        <div class="m-sidemenu__content" >
+            <div ng-if="vm.tree" class="m-tree">
+                <cms-tree tree="vm.tree" show-children="vm.showChildren(tree)" action="vm.setSelected(item)" selected="vm.selected"></cms-tree>
+                <a href="#/contents/bin" ng-class="vm.isCurrent({url: '/contents/bin'})" class="m-tree__node" ng-if="vm.tree && vm.type === 'structure'">
+                    <i class="m-tree__icon material-icons">&#xE872;</i>
+                    <span class="m-tree__link">Bin</span>
+                </a>
+            </div>
+            <ul ng-if="vm.items" class="m-tree">
+                <li class="m-tree__leaf" ng-class="vm.isCurrent(r)" ng-repeat="r in vm.items" permissions="{{r.context}};read">
+                    <a href="#{{ r.url }}" ng-bind-html="r.content"></a>
+                </li>
+            </ul>
+        </div>
+        <footer ng-if="vm.tree && vm.type === 'structure'" class="m-sidemenu__button" permissions="content;create">
+            <p class="m-sidemenu__button-label u-align-right">Create content</p>
+            <a class="m-sidemenu__action m-btn m-btn--sq m-btn--primary" href="#/content/create">
+                <i class="m-sidemenu__icon material-icons">&#xE145;</i>
+                <label class="m-btn__label">Add</label>
+            </a>
+        </footer>
+        <footer ng-if="vm.tree && vm.type === 'media'" class="m-sidemenu__button" permissions="media;create">
+            <p class="m-sidemenu__button-label u-align-right">Create directory</p>
+            <a class="m-sidemenu__action m-btn m-btn--sq m-btn--primary" href="#/media/create">
+                <i class="m-sidemenu__icon material-icons">&#xE145;</i>
+                <label class="m-btn__label">Add</label>
+            </a>
+        </footer>
+    </div>
+  </div>
+</aside>

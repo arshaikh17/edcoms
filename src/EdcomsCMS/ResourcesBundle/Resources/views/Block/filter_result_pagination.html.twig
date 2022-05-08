@@ -1,0 +1,15 @@
+<nav aria-label="Page navigation example">
+    <ul class="pagination">
+        {# Simple pagination until it specs out properly#}
+        {% for i in 1..result.totalPages %}
+            {% set params = i==1 ?
+            array_unset(app.request.query.all|merge({'path':app.request.attributes.get('_route_params')['path']}),'page')
+            :
+            app.request.query.all|merge({'page': i,'path':app.request.attributes.get('_route_params')['path']})
+            %}
+            <li class="page-item {{ result.currentPage==i ? 'active' : '' }}">
+                <a class="page-link" href="{{ path(app.request.attributes.get('_route'), params) }}">{{ i }}</a>
+            </li>
+        {% endfor %}
+    </ul>
+</nav>
