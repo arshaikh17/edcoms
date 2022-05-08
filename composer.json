@@ -1,25 +1,25 @@
 {
-    "name": "edcoms/cms",
-    "autoload": {
-        "psr-0": {
-            "EdcomsCMS": "src"
-        }
-    },
-    "require": {
-        "firebase/php-jwt": "v4.0.0",
-        "guzzlehttp/guzzle": "~6.0",
-        "nlp-tools/nlp-tools": "0.1.*",
-        "sonata-project/admin-bundle": "^3.16",
-        "sonata-project/doctrine-orm-admin-bundle": "^3.1",
-        "stfalcon/tinymce-bundle": "2.1",
-        "infinite-networks/form-bundle": "1.0.11",
-        "friendsofsymfony/user-bundle": "^2.0.0",
-        "sonata-project/user-bundle": "4.x-dev#34a771fddfad60ef3a8117d5758a2a737edc832c",
-        "gedmo/doctrine-extensions": "2.4.29",
-        "jms/serializer-bundle": "^2.0",
-        "knplabs/knp-paginator-bundle": "2.6.0",
-        "pixassociates/sortable-behavior-bundle": "1.3",
-        "monolog/monolog": "1.25.3",
-        "dizda/cloud-backup-bundle": "^3.5"
-    }
+	"name": "edcoms/cms",
+	"autoload": {
+		"psr-0": {
+			"EdcomsCMS": "src"
+		}
+	},
+	"require": {
+		"firebase/php-jwt": "v4.0.0",
+		"guzzlehttp/guzzle": "~6.0",
+		"nlp-tools/nlp-tools": "0.1.*",
+		"sonata-project/admin-bundle": "^3.16",
+		"sonata-project/doctrine-orm-admin-bundle": "^3.1",
+		"stfalcon/tinymce-bundle": "2.1",
+		"infinite-networks/form-bundle": "1.0.11",
+		"friendsofsymfony/user-bundle": "^2.0.0",
+		"sonata-project/user-bundle": "4.x-dev#34a771fddfad60ef3a8117d5758a2a737edc832c",
+		"gedmo/doctrine-extensions": "2.4.29",
+		"jms/serializer-bundle": "^2.0",
+		"knplabs/knp-paginator-bundle": "2.6.0",
+		"pixassociates/sortable-behavior-bundle": "1.3",
+		"monolog/monolog": "1.25.3",
+		"dizda/cloud-backup-bundle": "^3.5"
+	}
 }
